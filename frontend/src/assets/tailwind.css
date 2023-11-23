@@ -9,3 +9,17 @@
   transition: all 0.3s ease-in-out;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+#datepicker {
+  width: 200px;
+  height: 40px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.dp-custom-input {
+  box-shadow: 0 0 6px #1976d2;
+  color: #1976d2;
+}
+.dp-custom-input:hover {
+  border-color: #1976d2;
+}
