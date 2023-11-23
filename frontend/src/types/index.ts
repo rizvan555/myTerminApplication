@@ -16,3 +16,12 @@ export interface User {
   username: string;
   email: string;
 }
+
+export interface Service {
+  id: number;
+  image: string;
+  name: string;
+  price: string;
+  icon: string;
+  path: string;
+}
