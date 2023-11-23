@@ -1,19 +1,27 @@
 <template>
-  <div class="container w-[50vw] my-[10vh]">
-    <VueDatePicker
-      v-model="date"
-      input-class-name="dp-custom-input"
-      :min-date="new Date()"
-    />
+  <div
+    class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
+  >
+    <router-link to="/" class="text-start">
+      <left-arrow />
+    </router-link>
+    <div class="w-[50vw]">
+      <VueDatePicker
+        v-model="date"
+        input-class-name="dp-custom-input"
+        :min-date="new Date()"
+      />
+    </div>
   </div>
 
   <p v-if="date" class="text-center">{{ customDateFormatter(date) }}</p>
   <p v-if="date" class="text-center">{{ customerTime(date) }}</p>
-  <p v-if="!date">{{ date }}</p>
+  <p v-if="!date" class="text-center">{{ startDate }}</p>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
+import LeftArrow from '../assets/Icons/LeftArrow.vue';
 
 const date = ref();
 const startDate = ref(new Date());
@@ -27,4 +35,11 @@ const customerTime = (date) => {
   const options = { hour: 'numeric', minute: 'numeric' };
   return new Date(date).toLocaleTimeString('en-GB', options);
 };
+
+const selectedServiceName = computed(() => {
+  const selectedService = services.find(
+    (service) => service.id === serviceId.value
+  );
+  return selectedService ? selectedService.name : '';
+});
 </script>
