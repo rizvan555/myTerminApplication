@@ -16,18 +16,32 @@
     </div>
   </div>
 
-  <p v-if="date" class="text-center">{{ customDateFormatter(date) }}</p>
-  <p v-if="date" class="text-center">{{ customerTime(date) }}</p>
+  <div class="flex flex-col justify-center items-center gap-4">
+    <div v-if="date" class="flex gap-2 text-xl">
+      {{ customDateFormatter(date) }}
+    </div>
+
+    <div
+      v-if="date"
+      class="text-center text-2xl flex gap-2"
+      :class="{
+        'text-red-600': !checkTime,
+      }"
+    >
+      {{ customerTime(date) }}
+    </div>
+  </div>
   <p v-if="!date" class="text-center">{{ startDate }}</p>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import LeftArrow from '../assets/Icons/LeftArrow.vue';
 import NameService from '../components/NameService.vue';
 
 const date = ref();
 const startDate = ref(new Date());
+const checkTime = ref(true); // Initialize checkTime with a default value
 
 const customDateFormatter = (date) => {
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -43,7 +57,9 @@ const customerTime = (date) => {
   const endOfDay = new Date(selectedDate);
   endOfDay.setHours(20, 0, 0);
 
-  if (selectedDate >= startOfDay && selectedDate <= endOfDay) {
+  checkTime.value = selectedDate >= startOfDay && selectedDate <= endOfDay;
+
+  if (checkTime.value) {
     const options = { hour: 'numeric', minute: 'numeric' };
     return selectedDate.toLocaleTimeString('en-GB', options);
   } else {
