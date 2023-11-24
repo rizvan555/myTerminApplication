@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import RightArrow from '../assets/icons/rightArrow.vue';
+import RightArrow from '../assets/Icons/RightArrow.vue';
 import { useServiceStore } from '../stores/serviceStore';
 
 const serviceStore = useServiceStore();
