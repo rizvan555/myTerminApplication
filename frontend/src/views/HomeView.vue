@@ -4,10 +4,6 @@ import { getItem } from '../helper/persistanceStorage';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import Service from '../components/Service.vue';
-import { useServiceStore } from '../stores/serviceStore';
-
-const serviceStore = useServiceStore();
-const services = serviceStore.services;
 
 const users = ref<User[]>([]);
 

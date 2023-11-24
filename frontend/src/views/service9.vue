@@ -16,7 +16,9 @@
   </div>
 
   <p v-if="date" class="text-center">{{ customDateFormatter(date) }}</p>
-  <p v-if="date" class="text-center">{{ customerTime(date) }}</p>
+  <p v-if="date" class="text-center">
+    {{ customerTime(date) }}
+  </p>
   <p v-if="!date" class="text-center">{{ startDate }}</p>
 </template>
 
@@ -34,7 +36,19 @@ const customDateFormatter = (date) => {
 };
 
 const customerTime = (date) => {
-  const options = { hour: 'numeric', minute: 'numeric' };
-  return new Date(date).toLocaleTimeString('en-GB', options);
+  const selectedDate = new Date(date);
+
+  const startOfDay = new Date(selectedDate);
+  startOfDay.setHours(8, 0, 0);
+
+  const endOfDay = new Date(selectedDate);
+  endOfDay.setHours(20, 0, 0);
+
+  if (selectedDate >= startOfDay && selectedDate <= endOfDay) {
+    const options = { hour: 'numeric', minute: 'numeric' };
+    return selectedDate.toLocaleTimeString('en-GB', options);
+  } else {
+    return 'Please select a valid time range (8:00 - 20:00)';
+  }
 };
 </script>
