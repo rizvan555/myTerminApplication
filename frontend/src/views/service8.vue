@@ -1,7 +1,5 @@
 <template>
-  <div class="text-center text-2xl my-4 font-bold">
-    <p v-if="selectedServiceName">{{ selectedServiceName }}</p>
-  </div>
+  <NameService :serviceId="8" />
   <div
     class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
   >
@@ -25,10 +23,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import LeftArrow from '../assets/Icons/LeftArrow.vue';
-import { useServiceStore } from '../stores/serviceStore';
-
-const serviceStore = useServiceStore();
-const services = serviceStore.services;
+import NameService from '../components/NameService.vue';
 
 const date = ref();
 const startDate = ref(new Date());
@@ -42,10 +37,4 @@ const customerTime = (date) => {
   const options = { hour: 'numeric', minute: 'numeric' };
   return new Date(date).toLocaleTimeString('en-GB', options);
 };
-const selectedServiceName = computed(() => {
-  const selectedService = services.find(
-    (service) => service.path === '/service8'
-  );
-  return selectedService ? selectedService.name : '';
-});
 </script>
