@@ -49,11 +49,6 @@ import { getItem } from '../helper/persistanceStorage';
 import axios from 'axios';
 import type { User } from '@/types';
 
-interface Options {
-  hour: string;
-  minute: string;
-}
-
 const users = ref<User[]>([]);
 const date = ref<string | null>(null); // Assuming date is a string, adjust the type if needed
 const startDate = ref(new Date());
