@@ -1,5 +1,12 @@
 <template>
-  <NameService :serviceId="1" />
+  <div v-for="user in users" :key="user.email" class="text-center my-2 text-xl">
+    Hallo {{ user.username }}.
+    <p class="flex justify-center items-center gap-2">
+      Dein wahl ist
+      <NameService :serviceId="1" />
+    </p>
+  </div>
+
   <div
     class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
   >
@@ -31,29 +38,63 @@
       {{ customerTime(date) }}
     </div>
   </div>
-  <p v-if="!date" class="text-center">{{ startDate }}</p>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import LeftArrow from '../assets/Icons/LeftArrow.vue';
 import NameService from '../components/NameService.vue';
+import { useServiceStore } from '../stores/serviceStore';
+import { getItem } from '../helper/persistanceStorage';
+import axios from 'axios';
+import type { User } from '@/types';
 
-const date = ref();
+interface Options {
+  hour: string;
+  minute: string;
+}
+
+const users = ref<User[]>([]);
+const date = ref<string | null>(null); // Assuming date is a string, adjust the type if needed
 const startDate = ref(new Date());
-const checkTime = ref(true); // Initialize checkTime with a default value
+const checkTime = ref(true);
+const serviceStore = useServiceStore();
 
-const customDateFormatter = (date) => {
+onMounted(async () => {
+  try {
+    const token = getItem('token');
+    const response = await axios.get('/api/users', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response && response.data) {
+      users.value = [response.data];
+    }
+  } catch (error) {
+    console.error('Error fetching users data:', error);
+  }
+});
+
+const customDateFormatter = (date: string | null) => {
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
-  return new Date(date).toLocaleDateString('en-GB', options);
+  return date
+    ? new Date(date).toLocaleDateString(
+        'en-GB',
+        options as Intl.DateTimeFormatOptions
+      )
+    : '';
 };
 
-const customerTime = (date) => {
-  const selectedDate = new Date(date);
+const customerTime = (date: string | null) => {
+  if (!date) {
+    return '';
+  }
 
+  const selectedDate = new Date(date);
   const startOfDay = new Date(selectedDate);
   startOfDay.setHours(8, 0, 0);
-
   const endOfDay = new Date(selectedDate);
   endOfDay.setHours(20, 0, 0);
 
