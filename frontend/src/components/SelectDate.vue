@@ -102,7 +102,7 @@ const handleSubmit = async (e: any) => {
     if (response.data.token) {
       setItem('token', response.data.token);
     }
-    router.push({ name: 'home' });
+    router.push({ name: 'result' });
   } catch (error: any) {
     console.log('Server Error:', error.response.data);
   } finally {
