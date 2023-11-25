@@ -86,13 +86,15 @@ const handleSubmit = async (e: any) => {
     isSubmitting.value = true;
     formDataServices.value.date = date.value;
 
+    const selectedDate = new Date(formDataServices.value.date);
+    selectedDate.setHours(selectedDate.getHours() + 1);
+
     const response = await axios.post(
       '/api/users/service',
       {
-        date: formDataServices.value.date,
+        date: selectedDate.toISOString(),
         email: userDetails.value.email,
         username: userDetails.value.username,
-        
       },
       config
     );
@@ -124,6 +126,11 @@ const customerTime = (date: string | null) => {
     return '';
   }
   const selectedDate = new Date(date);
+  selectedDate.setHours(selectedDate.getHours() + 1);
+
+  const timezoneOffset = selectedDate.getTimezoneOffset() / 60;
+  selectedDate.setHours(selectedDate.getHours() + timezoneOffset);
+
   const startOfDay = new Date(selectedDate);
   startOfDay.setHours(8, 0, 0);
   const endOfDay = new Date(selectedDate);
