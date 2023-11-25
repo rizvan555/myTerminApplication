@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import User from './models/user.js';
+import UserService from './models/userService.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,7 +30,27 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// const extractUserIdMiddleware = (req, res, next) => {
+//   const tokenHeader = req.headers.authorization;
+//   if (!tokenHeader) {
+//     return res.status(401).json({ error: 'Unauthorized - Token not provided' });
+//   }
+//   const token = tokenHeader.split(' ')[1];
+
+//   try {
+//     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+//     console.log('Decoded Token:', decodedToken);
+//     req.userId = decodedToken.userId;
+//     next();
+//   } catch (error) {
+//     console.error('Error decoding token:', error);
+//     res.status(401).json({ error: 'Unauthorized - Invalid token' });
+//   }
+// };
+// app.use(extractUserIdMiddleware);
+
 // Register Route
+
 app.post('/users', async (req, res) => {
   try {
     const user = new User({
@@ -75,6 +96,46 @@ app.post('/users/login', async (req, res) => {
     res.status(200).json({ token });
   } catch (error) {
     console.error('Login Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Record Service
+app.post('/users/service', async (req, res) => {
+  console.log('Request Body:', req.body);
+  try {
+    const tokenHeader = req.headers.authorization;
+    if (!tokenHeader) {
+      return res
+        .status(401)
+        .json({ error: 'Unauthorized - Token not provided' });
+    }
+    const token = tokenHeader.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const userId = decodedToken.userId;
+
+    const updatedUserService = await UserService.findOneAndUpdate(
+      { email: req.body.email },
+      {
+        $set: {
+          date: req.body.date,
+          username: req.body.username,
+          userId: userId,
+        },
+      },
+      { upsert: true, new: true }
+    );
+
+    const responseToken = jwt.sign(
+      { userId: updatedUserService._id },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: '24h',
+      }
+    );
+    res.status(200).json({ token: responseToken });
+  } catch (error) {
+    console.error('Error recording data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

@@ -3,6 +3,10 @@ export interface FormData {
   email: string;
   password: string;
 }
+export interface FormDataServices {
+  date: string | null;
+}
+
 export interface FormDataLogin {
   email: string;
   password: string;
@@ -15,6 +19,7 @@ export interface Errors {
 export interface User {
   username: string;
   email: string;
+  services: Service[];
 }
 
 export interface Service {

@@ -29,15 +29,85 @@
       {{ customerTime(date) }}
     </div>
   </div>
+
+  <div class="text-center">
+    <button type="submit" @click="handleSubmit">Submit</button>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import LeftArrow from '../assets/Icons/LeftArrow.vue';
+import axios from 'axios';
+import { getItem, setItem } from '../helper/persistanceStorage';
+import { useRouter } from 'vue-router';
+import type { Errors, FormDataServices } from '@/types';
+
+const formDataServices = ref<FormDataServices>({
+  date: '',
+});
 
 const date = ref<string | null>(null);
 const startDate = ref(new Date());
 const checkTime = ref(true);
+const router = useRouter();
+const isSubmitting = ref(false);
+const errors = ref<Errors>({});
+const userDetails = ref({ username: '', email: '' });
+
+const token = getItem('token');
+
+onMounted(async () => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    };
+
+    const response = await axios.get('/api/users', config);
+    userDetails.value = response.data;
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+  }
+});
+
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    };
+    isSubmitting.value = true;
+    formDataServices.value.date = date.value;
+
+    const response = await axios.post(
+      '/api/users/service',
+      {
+        date: formDataServices.value.date,
+        email: userDetails.value.email,
+        username: userDetails.value.username,
+        
+      },
+      config
+    );
+
+    if (response.data.token) {
+      setItem('token', response.data.token);
+    }
+    router.push({ name: 'home' });
+  } catch (error: any) {
+    console.log('Server Error:', error.response.data);
+  } finally {
+    isSubmitting.value = false;
+  }
+  console.error('Registration Error:', errors);
+};
 
 const customDateFormatter = (date: string | null) => {
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -53,7 +123,6 @@ const customerTime = (date: string | null) => {
   if (!date) {
     return '';
   }
-
   const selectedDate = new Date(date);
   const startOfDay = new Date(selectedDate);
   startOfDay.setHours(8, 0, 0);
@@ -64,7 +133,10 @@ const customerTime = (date: string | null) => {
 
   if (checkTime.value) {
     const options = { hour: 'numeric', minute: 'numeric' };
-    return selectedDate.toLocaleTimeString('en-GB', options);
+    return selectedDate.toLocaleTimeString(
+      'en-GB',
+      options as Intl.DateTimeFormatOptions
+    );
   } else {
     return 'Please select a valid time range (8:00 - 20:00)';
   }
