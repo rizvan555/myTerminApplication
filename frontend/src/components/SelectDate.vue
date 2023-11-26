@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!showSuccessMessage"
     class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
   >
     <router-link to="/" class="text-start">
@@ -14,7 +15,10 @@
       />
     </div>
   </div>
-  <div class="flex flex-col justify-center items-center gap-4">
+  <div
+    class="flex flex-col justify-center items-center gap-4"
+    v-if="!showSuccessMessage"
+  >
     <div v-if="date" class="flex gap-2 text-xl">
       {{ customDateFormatter(date) }}
     </div>
@@ -30,13 +34,19 @@
     </div>
   </div>
 
+  <div>
+    <h1 v-if="showSuccessMessage">hallo</h1>
+  </div>
+
   <div class="text-center">
-    <button type="submit" @click="handleSubmit">Submit</button>
+    <button type="submit" @click="handleSubmit" v-if="!showSuccessMessage">
+      Submit
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
 import LeftArrow from '../assets/Icons/LeftArrow.vue';
 import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
@@ -52,6 +62,7 @@ const startDate = ref(new Date());
 const checkTime = ref(true);
 const router = useRouter();
 const isSubmitting = ref(false);
+const showSuccessMessage = inject('showSuccessMessage', ref(false));
 const errors = ref<Errors>({});
 const userDetails = ref({ username: '', email: '' });
 
@@ -102,13 +113,17 @@ const handleSubmit = async (e: any) => {
     if (response.data.token) {
       setItem('token', response.data.token);
     }
-    router.push({ name: 'result' });
+    showSuccessMessage.value = true;
+    // router.push({
+    //   name: 'result',
+    //   params: { date: selectedDate.toISOString() },
+    // });
   } catch (error: any) {
     console.log('Server Error:', error.response.data);
   } finally {
     isSubmitting.value = false;
   }
-  console.error('Registration Error:', errors);
+  console.error('Registration Error:', errors.value);
 };
 
 const customDateFormatter = (date: string | null) => {

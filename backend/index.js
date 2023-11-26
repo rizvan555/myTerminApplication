@@ -126,14 +126,15 @@ app.post('/users/service', async (req, res) => {
       { upsert: true, new: true }
     );
 
-    const responseToken = jwt.sign(
+    const newToken = jwt.sign(
       { userId: updatedUserService._id },
       process.env.SECRET_KEY,
       {
         expiresIn: '24h',
       }
     );
-    res.status(200).json({ token: responseToken });
+
+    res.status(200).json({ token: newToken });
   } catch (error) {
     console.error('Error recording data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
