@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import haarImage1 from '../assets/images/haar1.jpg';
 import haarImage2 from '../assets/images/haar2.jpg';
 import haarImage3 from '../assets/images/haar3.jpg';
+import haarImage4 from '../assets/images/haar4.jpg';
 import { getItem } from '../helper/persistanceStorage';
 
 interface ServiceState {
@@ -38,7 +39,7 @@ export const useServiceStore = defineStore('serviceStore', {
       },
       {
         id: 4,
-        image: haarImage1,
+        image: haarImage4,
         name: 'Augenbrauen zupfen(Faden) / Eyebrow plucking(thread)',
         price: '€ 10.00',
         icon: '',
