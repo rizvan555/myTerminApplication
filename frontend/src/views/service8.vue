@@ -1,24 +1,28 @@
 <template>
-  <div class="" v-if="!showSuccessMessage && userDetails.username">
-    <div class="flex justify-center items-center gap-2 mb-[-25px]">
-      <p class="text-l">Hallo</p>
-      <user-name />
+  <div class="border w-[60vw] mx-auto my-4 pt-1 pb-4 appointment-check">
+    <div class="" v-if="!showSuccessMessage && userDetails.username">
+      <div class="flex justify-center items-center gap-2 mb-[-25px] mx-auto">
+        <p class="text-l">Hallo</p>
+        <user-name />
+      </div>
+      <div class="flex justify-center items-center gap-2">
+        <p class="text-l">Ihre Wahl ist</p>
+        <NameService :serviceId="8" />
+      </div>
     </div>
-    <div class="flex justify-center items-center gap-2">
-      <p class="text-l">Ihre Wahl ist</p>
-      <NameService :serviceId="8" />
+
+    <div
+      class="flex flex-col justify-center items-center mt-2 gap-3"
+      v-if="!showSuccessMessage && userDetails.username"
+    >
+      <h6 class="text-[#3f50b5] font-bold">Wählen Sie Ihren Termin</h6>
+      <img :src="DownArrow" alt="Down Arrow" class="" />
+    </div>
+
+    <div class="">
+      <select-date :showSuccessMessage="showSuccessMessage" />
     </div>
   </div>
-
-  <div
-    class="flex flex-col justify-center items-center mt-4 gap-3"
-    v-if="!showSuccessMessage && userDetails.username"
-  >
-    <h6 class="text-[#3f50b5] font-bold">Wählen Sie Ihren Termin</h6>
-    <img :src="DownArrow" alt="Down Arrow" class="" />
-  </div>
-
-  <select-date :showSuccessMessage="showSuccessMessage" />
 </template>
 
 <script setup lang="ts">

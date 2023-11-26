@@ -36,11 +36,11 @@ onMounted(async () => {
       v-if="users.length"
       class="flex justify-center items-center gap-2 my-4"
     >
-      <p class="flex justify-center">Hi,</p>
+      <p class="flex justify-center">Hallo,</p>
       <p v-for="user in users" :key="user.email" class="font-bold">
         {{ user.username }}.
       </p>
-      <p>What do you want to do?</p>
+      <p>Was möchten Sie tun?</p>
     </div>
     <div>
       <div class="grid gap-2">

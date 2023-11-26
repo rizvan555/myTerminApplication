@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!showSuccessMessage"
-    class="flex justify-center items-center container w-[90vw] my-[4vh] gap-5"
+    class="flex justify-center items-center container my-[4vh] gap-5"
   >
     <div class="w-[50vw]">
       <VueDatePicker
@@ -42,7 +42,7 @@
   </div>
 
   <div
-    class="flex justify-center items-center w-[30vw] mx-auto my-[10vh] bg-slate-50 result"
+    class="flex justify-center items-center w-[30vw] mx-auto my-[10vh]"
     v-if="showSuccessMessage"
   >
     <div class="flex flex-col justify-center items-center py-4">
@@ -89,7 +89,7 @@ import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
 import type { Errors, FormDataServices } from '@/types';
-import AttentionIcon from '../assets/Icons/icons8-attention-48.png';
+import AttentionIcon from '../assets/Icons/icons8-attention.gif';
 
 const formDataServices = ref<FormDataServices>({
   date: '',
