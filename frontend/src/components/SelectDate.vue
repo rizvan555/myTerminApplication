@@ -3,18 +3,25 @@
     v-if="!showSuccessMessage"
     class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
   >
-    <router-link to="/" class="text-start">
+    <!-- <router-link to="/" class="text-start">
       <left-arrow />
-    </router-link>
+    </router-link> -->
 
     <div class="w-[50vw]">
       <VueDatePicker
         v-model="date"
         input-class-name="dp-custom-input"
         :min-date="new Date()"
+        :disabled="userDetails.username === ''"
       />
     </div>
   </div>
+  <h1
+    v-if="userDetails.username === ''"
+    class="text-red-500 text-center text-2xl my-4"
+  >
+    Sie müssen sich anmelden
+  </h1>
   <div
     class="flex flex-col justify-center items-center gap-4"
     v-if="!showSuccessMessage"
@@ -34,12 +41,39 @@
     </div>
   </div>
 
-  <div>
-    <h1 v-if="showSuccessMessage">hallo</h1>
+  <div
+    class="flex justify-center items-center w-[30vw] mx-auto my-[20vh] bg-slate-50 result"
+    v-if="showSuccessMessage"
+  >
+    <div class="flex flex-col justify-center items-center py-4">
+      <div class="mb-5 font-bold text-xl">
+        <h1>Dein Termin</h1>
+        <hr />
+      </div>
+
+      <div v-if="date" class="flex gap-2 text-xl">
+        {{ customDateFormatter(date) }}
+      </div>
+
+      <div
+        v-if="date"
+        class="text-center text-2xl flex gap-2"
+        :class="{
+          'text-red-600': !checkTime,
+        }"
+      >
+        {{ customerTime(date) }}
+      </div>
+    </div>
   </div>
 
   <div class="text-center">
-    <button type="submit" @click="handleSubmit" v-if="!showSuccessMessage">
+    <button
+      type="submit"
+      @click="handleSubmit"
+      v-if="!showSuccessMessage && userDetails.username"
+      :disabled="!date || isSubmitting"
+    >
       Submit
     </button>
   </div>
@@ -70,15 +104,19 @@ const token = getItem('token');
 
 onMounted(async () => {
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    };
+    const token = getItem('token');
 
-    const response = await axios.get('/api/users', config);
-    userDetails.value = response.data;
+    if (token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      };
+
+      const response = await axios.get('/api/users', config);
+      userDetails.value = response.data;
+    }
   } catch (error) {
     console.error('Error fetching user details:', error);
   }
@@ -114,10 +152,7 @@ const handleSubmit = async (e: any) => {
       setItem('token', response.data.token);
     }
     showSuccessMessage.value = true;
-    // router.push({
-    //   name: 'result',
-    //   params: { date: selectedDate.toISOString() },
-    // });
+    console.log('Success:', response.data);
   } catch (error: any) {
     console.log('Server Error:', error.response.data);
   } finally {

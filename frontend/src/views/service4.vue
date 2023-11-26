@@ -5,7 +5,7 @@
       <p><user-name /></p>
     </div>
     <div class="flex justify-center items-center gap-2">
-      <p class="text-xl">Dein wahl ist</p>
+      <p class="text-xl">Ihre Wahl ist</p>
       <NameService :serviceId="4" />
     </div>
   </div>
