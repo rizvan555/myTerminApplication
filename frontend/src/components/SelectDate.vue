@@ -13,12 +13,15 @@
       />
     </div>
   </div>
-  <h1
+  <div
+    class="flex flex-col justify-center items-center"
     v-if="userDetails.username === ''"
-    class="text-red-500 text-center text-2xl my-4"
   >
-    Sie müssen sich anmelden
-  </h1>
+    <img :src="AttentionIcon" alt="AttentionIcon" class="w-16" />
+    <h1 class="text-red-500 text-center text-xl mb-4">
+      Sie müssen sich anmelden
+    </h1>
+  </div>
   <div
     class="flex flex-col justify-center items-center gap-4"
     v-if="!showSuccessMessage"
@@ -86,6 +89,7 @@ import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
 import type { Errors, FormDataServices } from '@/types';
+import AttentionIcon from '../assets/Icons/icons8-attention-48.png';
 
 const formDataServices = ref<FormDataServices>({
   date: '',

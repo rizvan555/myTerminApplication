@@ -99,7 +99,6 @@ const onSubmit = async (e: any) => {
       config
     );
     console.log(formData.value);
-    
 
     setItem('token', response.data.token);
     router.push({ name: 'home' });
