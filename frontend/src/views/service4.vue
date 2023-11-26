@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <select-date />
+  <select-date :showSuccessMessage="showSuccessMessage"/>
 </template>
 
 <script setup lang="ts">
