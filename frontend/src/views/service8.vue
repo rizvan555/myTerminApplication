@@ -1,16 +1,10 @@
 <template>
-  <div class="">
-    <div
-      class="flex justify-center items-center gap-2"
-      v-if="!showSuccessMessage"
-    >
+  <div class="" v-if="!showSuccessMessage && userDetails.username">
+    <div class="flex justify-center items-center gap-2">
       <p class="text-xl">Hallo</p>
-      <p><user-name /></p>
+      <user-name />
     </div>
-    <div
-      class="flex justify-center items-center gap-2"
-      v-if="!showSuccessMessage"
-    >
+    <div class="flex justify-center items-center gap-2">
       <p class="text-xl">Ihre Wahl ist</p>
       <NameService :serviceId="8" />
     </div>
@@ -26,5 +20,8 @@ import SelectDate from '../components/SelectDate.vue';
 import UserName from '../components/Username.vue';
 
 const showSuccessMessage = ref(false);
+const userDetails = ref({ username: '', email: '' });
+
+provide('userDetails', userDetails);
 provide('showSuccessMessage', showSuccessMessage);
 </script>

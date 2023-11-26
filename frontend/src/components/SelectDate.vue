@@ -3,10 +3,6 @@
     v-if="!showSuccessMessage"
     class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
   >
-    <!-- <router-link to="/" class="text-start">
-      <left-arrow />
-    </router-link> -->
-
     <div class="w-[50vw]">
       <VueDatePicker
         v-model="date"
@@ -67,12 +63,16 @@
     </div>
   </div>
 
-  <div class="text-center">
+  <div
+    class="mx-auto bn39 mt-8"
+    v-if="!showSuccessMessage && userDetails.username"
+  >
     <button
       type="submit"
       @click="handleSubmit"
       v-if="!showSuccessMessage && userDetails.username"
       :disabled="!date || isSubmitting"
+      class="bn39span"
     >
       Submit
     </button>
@@ -81,7 +81,6 @@
 
 <script setup lang="ts">
 import { inject, onMounted, ref } from 'vue';
-import LeftArrow from '../assets/Icons/LeftArrow.vue';
 import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
@@ -98,7 +97,7 @@ const router = useRouter();
 const isSubmitting = ref(false);
 const showSuccessMessage = inject('showSuccessMessage', ref(false));
 const errors = ref<Errors>({});
-const userDetails = ref({ username: '', email: '' });
+const userDetails = inject('userDetails', ref({ username: '', email: '' }));
 
 const token = getItem('token');
 
