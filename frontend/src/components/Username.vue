@@ -1,5 +1,9 @@
 <template>
-  <div v-for="user in users" :key="user.email" class="text-center my-2 text-xl">
+  <div
+    v-for="user in users"
+    :key="user.email"
+    class="text-center my-2 text-l font-bold"
+  >
     {{ user.username }}
   </div>
 </template>

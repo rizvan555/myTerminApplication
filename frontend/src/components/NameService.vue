@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center text-xl my-4 font-semibold">
+  <div class="text-center text-l my-4 font-semibold">
     <p v-if="selectedServiceName">{{ selectedServiceName }}</p>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!showSuccessMessage"
-    class="flex justify-center items-center container w-[90vw] my-[10vh] gap-5"
+    class="flex justify-center items-center container w-[90vw] my-[4vh] gap-5"
   >
     <div class="w-[50vw]">
       <VueDatePicker
@@ -9,6 +9,7 @@
         input-class-name="dp-custom-input"
         :min-date="new Date()"
         :disabled="userDetails.username === ''"
+        :disabled-week-days="[0]"
       />
     </div>
   </div>
@@ -38,12 +39,12 @@
   </div>
 
   <div
-    class="flex justify-center items-center w-[30vw] mx-auto my-[20vh] bg-slate-50 result"
+    class="flex justify-center items-center w-[30vw] mx-auto my-[10vh] bg-slate-50 result"
     v-if="showSuccessMessage"
   >
     <div class="flex flex-col justify-center items-center py-4">
       <div class="mb-5 font-bold text-xl">
-        <h1>Dein Termin</h1>
+        <h1>Ihr Termin</h1>
         <hr />
       </div>
 
@@ -134,7 +135,7 @@ const handleSubmit = async (e: any) => {
     isSubmitting.value = true;
     formDataServices.value.date = date.value;
 
-    const selectedDate = new Date(formDataServices.value.date);
+    const selectedDate = new Date(String(formDataServices.value.date));
     selectedDate.setHours(selectedDate.getHours() + 1);
 
     const response = await axios.post(

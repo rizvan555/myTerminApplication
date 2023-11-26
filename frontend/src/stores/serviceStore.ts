@@ -47,7 +47,7 @@ export const useServiceStore = defineStore('serviceStore', {
       },
       {
         id: 5,
-        image: haarImage2,
+        image: haarImage4,
         name: 'Bartschnitt  & Kontur(Maschine) / Beard Cut & Contour(Machine)',
         price: '€ 15.00',
         icon: '',
