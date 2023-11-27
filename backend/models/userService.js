@@ -20,6 +20,10 @@ const userServiceSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  phone: {
+    type: Number,
+    required: true,
+  },
   selectedService: {
     type: String,
     required: true,

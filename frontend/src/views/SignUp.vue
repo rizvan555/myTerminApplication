@@ -42,6 +42,19 @@
             </fieldset>
             <fieldset class="form-group">
               <input
+                v-model="formData.phone"
+                class="form-control form-control-lg"
+                :class="{ 'border-red-500': errors.phone }"
+                type="text"
+                placeholder="Phone"
+                @input="clearError('phone')"
+              />
+              <div v-if="errors.phone" class="text-red-500">
+                {{ errors.phone }}
+              </div>
+            </fieldset>
+            <fieldset class="form-group">
+              <input
                 v-model="formData.password"
                 class="form-control form-control-lg"
                 :class="{ 'border-red-500': errors.password }"
@@ -73,7 +86,6 @@ import { ref } from 'vue';
 import { setItem } from '../helper/persistanceStorage';
 import router from '../router/index';
 import * as Yup from 'yup';
-import bcrypt from 'bcryptjs';
 import axios from '../api/axios';
 import type { Errors, FormData } from '@/types';
 
@@ -81,6 +93,7 @@ const formData = ref<FormData>({
   username: '',
   email: '',
   password: '',
+  phone: '',
 });
 
 const isSubmitting = ref(false);
@@ -90,6 +103,9 @@ const schema = Yup.object().shape({
     .min(3, 'Username must be at least 3 characters')
     .required('Username is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
+  phone: Yup.string()
+    .min(10, 'Phone must be at least 10 characters')
+    .required('Phone is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),

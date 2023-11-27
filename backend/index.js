@@ -33,13 +33,20 @@ app.get('/', (req, res) => {
 // Register Route
 app.post('/users', async (req, res) => {
   try {
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
     const user = new User({
       username: req.body.username,
       email: req.body.email,
+      phone: req.body.phone,
       password: req.body.password,
     });
+
     user.password = await bcrypt.hash(user.password, 10);
     await user.save();
+
     res.status(201).json({ message: 'User registered successfully' });
     console.log('Received POST request at /users');
   } catch (error) {
@@ -94,6 +101,7 @@ app.post('/users/service', async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = decodedToken.userId;
     const selectedService = req.body.selectedService;
+    const phone = req.body.phone;
 
     const updatedUserService = await UserService.findOneAndUpdate(
       { email: req.body.email },
@@ -101,6 +109,7 @@ app.post('/users/service', async (req, res) => {
         $set: {
           date: req.body.date,
           username: req.body.username,
+          phone: phone,
           userId: userId,
           selectedService: selectedService,
         },
@@ -116,7 +125,6 @@ app.post('/users/service', async (req, res) => {
         expiresIn: '24h',
       }
     );
-
     res.status(200).json({ token: newToken });
   } catch (error) {
     console.error('Error recording data:', error);

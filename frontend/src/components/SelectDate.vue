@@ -104,7 +104,10 @@ const router = useRouter();
 const isSubmitting = ref(false);
 const showSuccessMessage = inject('showSuccessMessage', ref(false));
 const errors = ref<Errors>({});
-const userDetails = inject('userDetails', ref({ username: '', email: '' }));
+const userDetails = inject(
+  'userDetails',
+  ref({ username: '', email: '', phone: '' })
+);
 const token = getItem('token');
 const serviceStore = useServiceStore();
 const services = serviceStore.services;
@@ -181,6 +184,7 @@ const handleSubmit = async (e: any) => {
         date: selectedDate.toISOString(),
         email: userDetails.value.email,
         username: userDetails.value.username,
+        phone: userDetails.value.phone,
         selectedService: selectedServiceName.value,
       },
       config
