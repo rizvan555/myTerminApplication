@@ -32,7 +32,7 @@
                 class="form-control form-control-lg"
                 :class="{ 'border-red-500': errors.email }"
                 type="text"
-                placeholder="Email"
+                placeholder="E-Mail"
                 autocomplete="email"
                 @input="clearError('email')"
               />
@@ -40,13 +40,14 @@
                 {{ errors.email }}
               </div>
             </fieldset>
+            
             <fieldset class="form-group">
               <input
                 v-model="formData.phone"
                 class="form-control form-control-lg"
                 :class="{ 'border-red-500': errors.phone }"
                 type="text"
-                placeholder="Phone"
+                placeholder="Telephone"
                 @input="clearError('phone')"
               />
               <div v-if="errors.phone" class="text-red-500">
@@ -67,13 +68,10 @@
                 {{ errors.password }}
               </div>
             </fieldset>
-            <button
-              type="submit"
-              class="btn btn-lg btn-primary pull-xs-right bg-blue-500"
-              :disabled="isSubmitting"
+
+            <v-btn :disabled="isSubmitting" color="primary" type="submit"
+              >Signup</v-btn
             >
-              Signup
-            </button>
           </form>
         </div>
       </div>
@@ -88,6 +86,9 @@ import router from '../router/index';
 import * as Yup from 'yup';
 import axios from '../api/axios';
 import type { Errors, FormData } from '@/types';
+import { VBtn } from 'vuetify/components';
+
+const model = ref('');
 
 const formData = ref<FormData>({
   username: '',

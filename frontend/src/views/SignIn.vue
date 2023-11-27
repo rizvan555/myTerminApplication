@@ -39,13 +39,10 @@
                 {{ errors.password }}
               </div>
             </fieldset>
-            <button
-              :disabled="isSubmitting"
-              type="submit"
-              class="btn btn-lg btn-primary pull-xs-right bg-blue-500"
+
+            <v-btn :disabled="isSubmitting" color="primary" type="submit"
+              >LOGIN</v-btn
             >
-              LOGIN
-            </button>
           </form>
         </div>
       </div>
@@ -60,6 +57,7 @@ import router from '../router/index';
 import * as Yup from 'yup';
 import axios from '../api/axios';
 import type { Errors, FormDataLogin } from '@/types';
+import { VBtn } from 'vuetify/components';
 
 const formData = ref<FormDataLogin>({
   email: '',
