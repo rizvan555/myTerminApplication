@@ -84,12 +84,13 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue';
+import { computed, inject, onMounted, ref } from 'vue';
 import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
 import type { Errors, FormDataServices } from '@/types';
 import AttentionIcon from '../assets/Icons/icons8-attention.gif';
+import { useServiceStore } from '../stores/serviceStore';
 
 const formDataServices = ref<FormDataServices>({
   date: '',
@@ -126,6 +127,29 @@ onMounted(async () => {
   }
 });
 
+const serviceStore = useServiceStore();
+const services = serviceStore.services;
+const props = defineProps({
+  serviceId: { type: Number, default: 1 },
+});
+const selectedServiceName = computed(() => {
+  console.log('props.serviceId:', props.serviceId);
+  console.log(
+    'List of service ids:',
+    services.map((service) => service.id)
+  );
+  const selectedService = services.find(
+    (service) => service.id === props.serviceId
+  );
+  if (selectedService) {
+    return selectedService.name;
+  } else {
+    console.warn(`Service with id ${props.serviceId} not found`);
+    return '';
+  }
+});
+console.log(selectedServiceName.value);
+
 const handleSubmit = async (e: any) => {
   e.preventDefault();
   try {
@@ -148,6 +172,7 @@ const handleSubmit = async (e: any) => {
         date: selectedDate.toISOString(),
         email: userDetails.value.email,
         username: userDetails.value.username,
+        serviceName: selectedServiceName.value,
       },
       config
     );

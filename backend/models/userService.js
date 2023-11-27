@@ -20,6 +20,10 @@ const userServiceSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  serviceName: {
+    type: String,
+    required: true,
+  },
 });
 
 const UserService = mongoose.model('UserService', userServiceSchema);

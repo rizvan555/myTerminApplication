@@ -30,27 +30,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// const extractUserIdMiddleware = (req, res, next) => {
-//   const tokenHeader = req.headers.authorization;
-//   if (!tokenHeader) {
-//     return res.status(401).json({ error: 'Unauthorized - Token not provided' });
-//   }
-//   const token = tokenHeader.split(' ')[1];
-
-//   try {
-//     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-//     console.log('Decoded Token:', decodedToken);
-//     req.userId = decodedToken.userId;
-//     next();
-//   } catch (error) {
-//     console.error('Error decoding token:', error);
-//     res.status(401).json({ error: 'Unauthorized - Invalid token' });
-//   }
-// };
-// app.use(extractUserIdMiddleware);
-
 // Register Route
-
 app.post('/users', async (req, res) => {
   try {
     const user = new User({
@@ -113,6 +93,7 @@ app.post('/users/service', async (req, res) => {
     const token = tokenHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     const userId = decodedToken.userId;
+    const selectedService = req.body.selectedService;
 
     const updatedUserService = await UserService.findOneAndUpdate(
       { email: req.body.email },
@@ -121,6 +102,7 @@ app.post('/users/service', async (req, res) => {
           date: req.body.date,
           username: req.body.username,
           userId: userId,
+          selectedService: selectedService,
         },
       },
       { upsert: true, new: true }
