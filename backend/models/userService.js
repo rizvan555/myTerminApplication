@@ -20,7 +20,7 @@ const userServiceSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  serviceName: {
+  selectedService: {
     type: String,
     required: true,
   },

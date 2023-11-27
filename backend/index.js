@@ -104,6 +104,7 @@ app.post('/users/service', async (req, res) => {
           userId: userId,
           selectedService: selectedService,
         },
+        $unset: { __v: 1 },
       },
       { upsert: true, new: true }
     );

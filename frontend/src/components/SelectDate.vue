@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue';
+import { computed, inject, onMounted, ref, defineProps } from 'vue';
 import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
@@ -104,8 +104,10 @@ const isSubmitting = ref(false);
 const showSuccessMessage = inject('showSuccessMessage', ref(false));
 const errors = ref<Errors>({});
 const userDetails = inject('userDetails', ref({ username: '', email: '' }));
-
 const token = getItem('token');
+const serviceStore = useServiceStore();
+const services = serviceStore.services;
+const props = defineProps(['serviceId']);
 
 onMounted(async () => {
   try {
@@ -127,29 +129,6 @@ onMounted(async () => {
   }
 });
 
-const serviceStore = useServiceStore();
-const services = serviceStore.services;
-const props = defineProps({
-  serviceId: { type: Number, default: 1 },
-});
-const selectedServiceName = computed(() => {
-  console.log('props.serviceId:', props.serviceId);
-  console.log(
-    'List of service ids:',
-    services.map((service) => service.id)
-  );
-  const selectedService = services.find(
-    (service) => service.id === props.serviceId
-  );
-  if (selectedService) {
-    return selectedService.name;
-  } else {
-    console.warn(`Service with id ${props.serviceId} not found`);
-    return '';
-  }
-});
-console.log(selectedServiceName.value);
-
 const handleSubmit = async (e: any) => {
   e.preventDefault();
   try {
@@ -163,6 +142,28 @@ const handleSubmit = async (e: any) => {
     isSubmitting.value = true;
     formDataServices.value.date = date.value;
 
+    const selectedServiceName = computed(() => {
+      if (router.currentRoute.value.path === '/service1') {
+        return 'Trocken schneiden & Styling / Cutting & Styling';
+      } else if (router.currentRoute.value.path === '/service2') {
+        return 'Basis Paket / Basic Package';
+      } else if (router.currentRoute.value.path === '/service3') {
+        return 'Kinderhaarschnitt / Children Haircut';
+      } else if (router.currentRoute.value.path === '/service4') {
+        return 'Augenbrauen zupfen(Faden) / Eyebrow plucking(thread)';
+      } else if (router.currentRoute.value.path === '/service5') {
+        return 'Bartschnitt  & Kontur(Maschine) / Beard Cut & Contour(Machine)';
+      } else if (router.currentRoute.value.path === '/service6') {
+        return 'Bartpflege Classic / Classic Beard Care';
+      } else if (router.currentRoute.value.path === '/service7') {
+        return 'Deluxe Paket / Deluxe Package';
+      } else if (router.currentRoute.value.path === '/service8') {
+        return 'Premium Paket / Deluxe Package';
+      } else if (router.currentRoute.value.path === '/service9') {
+        return 'Nassrasur Model / Wet Shave model';
+      }
+    });
+
     const selectedDate = new Date(String(formDataServices.value.date));
     selectedDate.setHours(selectedDate.getHours() + 1);
 
@@ -172,7 +173,7 @@ const handleSubmit = async (e: any) => {
         date: selectedDate.toISOString(),
         email: userDetails.value.email,
         username: userDetails.value.username,
-        serviceName: selectedServiceName.value,
+        selectedService: selectedServiceName.value,
       },
       config
     );
