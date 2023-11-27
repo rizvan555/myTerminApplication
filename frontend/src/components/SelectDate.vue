@@ -10,6 +10,7 @@
         :min-date="new Date()"
         :disabled="userDetails.username === ''"
         :disabled-week-days="[0]"
+        :format="format"
       />
     </div>
   </div>
@@ -107,7 +108,14 @@ const userDetails = inject('userDetails', ref({ username: '', email: '' }));
 const token = getItem('token');
 const serviceStore = useServiceStore();
 const services = serviceStore.services;
-const props = defineProps(['serviceId']);
+
+const format = (date: any) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `Selected date is ${day}/${month}/${year}`;
+};
 
 onMounted(async () => {
   try {
@@ -192,7 +200,11 @@ const handleSubmit = async (e: any) => {
 };
 
 const customDateFormatter = (date: string | null) => {
-  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  const options = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  };
   return date
     ? new Date(date).toLocaleDateString(
         'en-GB',

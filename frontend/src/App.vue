@@ -3,8 +3,10 @@ import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <template>
-  <div class="my-2">
+  <div class="my-2 px-48">
     <navigation-bar />
+    <label for=""></label>
+    <hr />
 
     <router-view />
   </div>

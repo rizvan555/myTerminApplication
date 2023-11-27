@@ -28,8 +28,8 @@ onMounted(async () => {
 <template>
   <main class="flex flex-col justify-center items-center">
     <div class="flex flex-col">
-      <h1 v-if="!users.length" class="flex justify-center text-2xl my-10">
-        HomePage
+      <h1 v-if="!users.length" class="flex justify-center text-2xl my-4">
+        Unsere Angebote
       </h1>
     </div>
     <div
