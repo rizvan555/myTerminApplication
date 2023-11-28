@@ -81,7 +81,7 @@ app.post('/users/login', async (req, res) => {
       expiresIn: '24h',
     });
 
-    if (req.body.email === 'karimovrizvan84@gmail.com') {
+    if (req.body.email === 'karimovrizvan84@gmail.com' && isPasswordValid) {
       return res.status(200).json({ token, redirect: '/dashboard/admin' });
     }
     res.status(200).json({ token });

@@ -21,6 +21,7 @@
     "axios": "^1.6.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
     "moment-timezone": "^0.5.43",
     "pinia": "^2.1.7",
     "tailwind": "^4.0.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
     "@types/jquery": "^3.5.29",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^18.18.5",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "@vitejs/plugin-vue": "^4.4.0",

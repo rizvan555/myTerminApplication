@@ -12,6 +12,7 @@ import Service7 from '../views/service7.vue';
 import Service8 from '../views/service8.vue';
 import Service9 from '../views/service9.vue';
 import Admin from '../views/dashboard/Admin.vue';
+import { getItem } from '../helper/persistanceStorage';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,7 +28,7 @@ const router = createRouter({
       component: SignUp,
     },
     {
-      path: '/signin',
+      path: '/signIn',
       name: 'signIn',
       component: SignIn,
     },
@@ -80,8 +81,23 @@ const router = createRouter({
       path: '/dashboard/admin',
       name: 'admin',
       component: Admin,
+      meta: { requiresAuth: true },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = getItem('token');
+
+    if (!token) {
+      next({ name: 'signIn' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

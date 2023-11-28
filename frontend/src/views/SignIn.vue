@@ -99,6 +99,7 @@ const onSubmit = async (e: any) => {
     console.log(formData.value);
 
     setItem('token', response.data.token);
+    
     if (response.data.redirect) {
       router.push(response.data.redirect);
     } else {
