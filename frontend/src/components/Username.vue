@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { getItem } from '../helper/persistanceStorage';
-import { useServiceStore } from '../stores/serviceStore';
+import { useServiceStore } from '../stores/useServiceStore';
 import type { User } from '@/types';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';

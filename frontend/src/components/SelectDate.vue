@@ -91,7 +91,7 @@ import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
 import type { Errors, FormDataServices } from '@/types';
 import AttentionIcon from '../assets/Icons/icons8-attention.gif';
-import { useServiceStore } from '../stores/serviceStore';
+import { useServiceStore } from '../stores/useServiceStore';
 
 const formDataServices = ref<FormDataServices>({
   date: '',

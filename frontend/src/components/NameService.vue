@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useServiceStore } from '../stores/serviceStore';
+import { useServiceStore } from '../stores/useServiceStore';
 import { computed } from 'vue';
 
 const serviceStore = useServiceStore();

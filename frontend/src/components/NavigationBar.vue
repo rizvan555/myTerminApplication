@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { useNavbarStore } from '../stores/navbar';
+import { useNavbarStore } from '../stores/useNavbar';
 
 export default {
   props: ['nav'],

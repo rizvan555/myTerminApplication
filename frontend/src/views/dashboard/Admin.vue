@@ -46,7 +46,10 @@
         </v-list>
       </v-navigation-drawer>
       <v-main style="height: 350px">
-        <div v-if="value === 'home'">Hallo Home</div>
+        <div v-if="value === 'home'">
+          <div v-for="user in users">{{ user.username }}</div>
+          <customer-list></customer-list>
+        </div>
         <div v-if="value === 'account'">Hallo Account</div>
         <div v-if="value === 'users'">Hallo Benutzer</div>
       </v-main>
@@ -70,11 +73,16 @@ import { onMounted } from 'vue';
 import { getItem } from '../../helper/persistanceStorage';
 import axios from 'axios';
 import type { User } from '@/types';
+import { useUsersStore } from '../../stores/useAllUsers';
+import CustomerList from '../../components/CustomerList.vue';
 
 const drawer = ref(true);
 const rail = ref(true);
 const users = ref<User[]>([]);
 const value = ref('home');
+const usersStore = useUsersStore();
+const allUsers = usersStore.allUsers;
+console.log(allUsers);
 
 const updateValue = (newValue: any) => {
   value.value = newValue;

@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import RightArrow from '../assets/Icons/RightArrow.vue';
-import { useServiceStore } from '../stores/serviceStore';
+import { useServiceStore } from '../stores/useServiceStore';
 
 const serviceStore = useServiceStore();
 const services = serviceStore.services;
