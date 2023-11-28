@@ -86,18 +86,4 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    const token = getItem('token');
-
-    if (!token) {
-      next({ name: 'signIn' });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-});
-
 export default router;

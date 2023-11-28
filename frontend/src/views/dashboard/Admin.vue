@@ -29,20 +29,27 @@
             prepend-icon="mdi-home-city"
             title="Home"
             value="home"
+            @click="updateValue('home')"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-account"
             title="Mein Konto"
             value="account"
+            @click="updateValue('account')"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-account-group-outline"
             title="Benutzer"
             value="users"
+            @click="updateValue('users')"
           ></v-list-item>
         </v-list>
       </v-navigation-drawer>
-      <v-main style="height: 250px"></v-main>
+      <v-main style="height: 350px">
+        <div v-if="value === 'home'">Hallo Home</div>
+        <div v-if="value === 'account'">Hallo Account</div>
+        <div v-if="value === 'users'">Hallo Benutzer</div>
+      </v-main>
     </v-layout>
   </v-card>
 </template>
@@ -67,6 +74,11 @@ import type { User } from '@/types';
 const drawer = ref(true);
 const rail = ref(true);
 const users = ref<User[]>([]);
+const value = ref('home');
+
+const updateValue = (newValue: any) => {
+  value.value = newValue;
+};
 
 onMounted(async () => {
   try {
