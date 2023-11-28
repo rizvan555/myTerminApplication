@@ -40,7 +40,7 @@
                 {{ errors.email }}
               </div>
             </fieldset>
-            
+
             <fieldset class="form-group">
               <input
                 v-model="formData.phone"

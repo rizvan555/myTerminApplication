@@ -11,6 +11,7 @@ import Service6 from '../views/service6.vue';
 import Service7 from '../views/service7.vue';
 import Service8 from '../views/service8.vue';
 import Service9 from '../views/service9.vue';
+import Admin from '../views/dashboard/Admin.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,7 +22,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/signup',
+      path: '/signUp',
       name: 'signUp',
       component: SignUp,
     },
@@ -74,6 +75,11 @@ const router = createRouter({
       path: '/service9',
       name: 'service9',
       component: Service9,
+    },
+    {
+      path: '/dashboard/admin',
+      name: 'admin',
+      component: Admin,
     },
   ],
 });

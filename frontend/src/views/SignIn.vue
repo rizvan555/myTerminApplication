@@ -99,7 +99,11 @@ const onSubmit = async (e: any) => {
     console.log(formData.value);
 
     setItem('token', response.data.token);
-    router.push({ name: 'home' });
+    if (response.data.redirect) {
+      router.push(response.data.redirect);
+    } else {
+      router.push({ name: 'home' });
+    }
   } catch (error: any) {
     if (error.name === 'ValidationError') {
       errors.value = error.inner.reduce((acc: Errors, err: any) => {
