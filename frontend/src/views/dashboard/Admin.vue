@@ -45,9 +45,8 @@
           ></v-list-item>
         </v-list>
       </v-navigation-drawer>
-      <v-main style="height: 350px">
-        <div v-if="value === 'home'">
-          <div v-for="user in users">{{ user.username }}</div>
+      <v-main style="height: 100%">
+        <div v-if="value === 'home'" class="py-4">
           <customer-list></customer-list>
         </div>
         <div v-if="value === 'account'">Hallo Account</div>

@@ -32,3 +32,9 @@ export interface Service {
   icon: string;
   path: string;
 }
+
+export interface CustomerListProps {
+  username: string;
+  date: string;
+  selectedService: string;
+}

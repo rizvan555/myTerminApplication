@@ -129,6 +129,7 @@ app.post('/users/service', async (req, res) => {
         expiresIn: '24h',
       }
     );
+
     res.status(200).json({ token: newToken });
   } catch (error) {
     console.error('Error recording data:', error);
@@ -161,18 +162,28 @@ app.get('/users', async (req, res) => {
   }
 });
 
-// app.get('/users/service', async (req, res) => {
-//   try {
-//     const user = await User.findOne({ email: req.body.email });
-//     if (!user) {
-//       return res.status(401).json({ error: 'Error' });
-//     }
-//     res.status(200).json(user);
-//   } catch (error) {
-//     console.error('Error fetching user data:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
+app.get('/users/service', async (req, res) => {
+  try {
+    const userServices = await UserService.find({});
+    console.log('User services:', userServices);
+    if (!userServices) {
+      return res.status(404).json({ error: 'User services not found' });
+    }
+
+    res.status(200).json(
+      userServices.map((userService) => ({
+        username: userService.username,
+        email: userService.email,
+        phone: userService.phone,
+        date: userService.date,
+        selectedService: userService.selectedService,
+      }))
+    );
+  } catch (error) {
+    console.error('Error fetching user services:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
