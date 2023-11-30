@@ -11,12 +11,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in userList" :key="user.username">
+        <tr v-for="user in sortedUserList" :key="user.username">
           <td class="text-[13px]">{{ user.username }}</td>
           <td class="text-[13px]">{{ user.email }}</td>
           <td class="text-[13px]">{{ user.phone }}</td>
           <td class="text-[13px]">{{ user.selectedService }}</td>
-          <td class="text-[13px]">{{ user.date }}</td>
+          <td class="text-[13px] w-[17vw]">{{ user.date }}</td>
         </tr>
       </tbody>
     </v-table>
@@ -25,10 +25,16 @@
 
 <script setup lang="ts">
 import type { CustomerListProps } from '@/types';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { VTable } from 'vuetify/components';
 
 const userList = ref<CustomerListProps[]>([]);
+
+const sortedUserList = computed(() => {
+  return userList.value.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+});
 
 onMounted(async () => {
   try {
