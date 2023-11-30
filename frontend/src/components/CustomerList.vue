@@ -1,13 +1,36 @@
 <template>
   <div>
-    <h1 class="mb-5 font-bold">Customer List</h1>
     <ol>
       <li v-for="user in userList" class="mb-2" type="1">
-        <h2><b>Name:</b> {{ user.username }}</h2>
-        <p><b>Email:</b> {{ user.email }}</p>
-        <p><b>Phone:</b> {{ user.phone }}</p>
-        <p><b>Date:</b> {{ user.date }}</p>
-        <p><b>Service:</b> {{ user.selectedService }}</p>
+        <h3 class="w-[60vw] flex">
+          <p class="font-bold w-[6vw]">Name:</p>
+          <p class="w-[30vw]">
+            {{ user.username }}
+          </p>
+        </h3>
+        <h3 class="w-[60vw] flex">
+          <p class="font-bold w-[6vw]">Email:</p>
+          <p>
+            {{ user.email }}
+          </p>
+        </h3>
+        <h3 class="w-[60vw] flex">
+          <p class="font-bold w-[6vw]">Phone:</p>
+          <p>
+            {{ user.phone }}
+          </p>
+        </h3>
+        <h3 class="w-[60vw] flex">
+          <p class="font-bold w-[6vw]">Date:</p>
+          <p>
+            {{ user.date }}
+          </p>
+        </h3>
+        <h3 class="w-[60vw] flex">
+          <p class="font-bold w-[6vw]">Service:</p>
+          <p>{{ user.selectedService }}</p>
+        </h3>
+        <hr class="w-[60vw] my-2" />
       </li>
     </ol>
   </div>

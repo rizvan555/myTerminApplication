@@ -34,6 +34,7 @@ export interface Service {
 }
 
 export interface CustomerListProps {
+  _id: number;
   username: string;
   email: string;
   phone: string;
