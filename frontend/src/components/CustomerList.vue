@@ -30,7 +30,7 @@
           <p class="font-bold w-[6vw]">Service:</p>
           <p>{{ user.selectedService }}</p>
         </h3>
-        <hr class="w-[60vw] my-2" />
+        <hr class="w-[45vw] my-2" />
       </li>
     </ol>
   </div>

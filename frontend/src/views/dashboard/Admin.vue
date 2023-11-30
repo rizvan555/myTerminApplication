@@ -12,6 +12,7 @@
           prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
           :title="user.username"
           nav
+          @click.stop="rail = !rail"
         >
           <template v-slot:append>
             <v-btn
@@ -45,11 +46,13 @@
           ></v-list-item>
         </v-list>
       </v-navigation-drawer>
-      <v-main style="height: 100%">
+      <v-main style="height: 100%; width: 100vw">
         <div v-if="value === 'home'" class="py-4">
           <customer-list></customer-list>
         </div>
-        <div v-if="value === 'account'">Hallo Account</div>
+        <div v-if="value === 'account'">
+          <profile></profile>
+        </div>
         <div v-if="value === 'users'">Hallo Benutzer</div>
       </v-main>
     </v-layout>
@@ -74,6 +77,7 @@ import axios from 'axios';
 import type { User } from '@/types';
 import { useUsersStore } from '../../stores/useAllUsers';
 import CustomerList from '../../components/CustomerList.vue';
+import Profile from '../../components/Profile.vue';
 
 const drawer = ref(true);
 const rail = ref(true);
