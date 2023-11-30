@@ -1,44 +1,32 @@
 <template>
-  <div>
-    <ol>
-      <li v-for="user in userList" class="mb-2" type="1">
-        <h3 class="w-[60vw] flex">
-          <p class="font-bold w-[6vw]">Name:</p>
-          <p class="w-[30vw]">
-            {{ user.username }}
-          </p>
-        </h3>
-        <h3 class="w-[60vw] flex">
-          <p class="font-bold w-[6vw]">Email:</p>
-          <p>
-            {{ user.email }}
-          </p>
-        </h3>
-        <h3 class="w-[60vw] flex">
-          <p class="font-bold w-[6vw]">Phone:</p>
-          <p>
-            {{ user.phone }}
-          </p>
-        </h3>
-        <h3 class="w-[60vw] flex">
-          <p class="font-bold w-[6vw]">Date:</p>
-          <p>
-            {{ user.date }}
-          </p>
-        </h3>
-        <h3 class="w-[60vw] flex">
-          <p class="font-bold w-[6vw]">Service:</p>
-          <p>{{ user.selectedService }}</p>
-        </h3>
-        <hr class="w-[45vw] my-2" />
-      </li>
-    </ol>
+  <div class="">
+    <v-table density="compact" class="">
+      <thead>
+        <tr>
+          <th class="text-left">Name</th>
+          <th class="text-left">E-Mail</th>
+          <th class="text-left">Phone</th>
+          <th class="text-left">Service</th>
+          <th class="text-left">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in userList" :key="user.username">
+          <td class="text-[13px]">{{ user.username }}</td>
+          <td class="text-[13px]">{{ user.email }}</td>
+          <td class="text-[13px]">{{ user.phone }}</td>
+          <td class="text-[13px]">{{ user.selectedService }}</td>
+          <td class="text-[13px]">{{ user.date }}</td>
+        </tr>
+      </tbody>
+    </v-table>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { CustomerListProps } from '@/types';
 import { ref, onMounted } from 'vue';
+import { VTable } from 'vuetify/components';
 
 const userList = ref<CustomerListProps[]>([]);
 

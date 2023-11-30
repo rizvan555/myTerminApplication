@@ -1,62 +1,63 @@
 <template>
-  <v-card>
-    <v-layout>
-      <v-navigation-drawer
-        v-model="drawer"
-        :rail="rail"
-        permanent
-        @click="rail = false"
+  <v-layout>
+    <v-navigation-drawer
+      v-model="drawer"
+      :rail="rail"
+      permanent
+      @click="rail = false"
+    >
+      <v-list-item
+        v-for="user in users"
+        prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+        :title="user.username"
+        nav
+        @click.stop="rail = !rail"
       >
+        <template v-slot:append>
+          <v-btn
+            variant="text"
+            icon="mdi-chevron-left"
+            @click.stop="rail = !rail"
+          ></v-btn>
+        </template>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list density="compact" nav>
         <v-list-item
-          v-for="user in users"
-          prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-          :title="user.username"
-          nav
-          @click.stop="rail = !rail"
-        >
-          <template v-slot:append>
-            <v-btn
-              variant="text"
-              icon="mdi-chevron-left"
-              @click.stop="rail = !rail"
-            ></v-btn>
-          </template>
-        </v-list-item>
+          prepend-icon="mdi-home-city"
+          title="Home"
+          value="home"
+          @click="updateValue('home')"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-account"
+          title="Mein Konto"
+          value="account"
+          @click="updateValue('account')"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-account-group-outline"
+          title="Benutzer"
+          value="users"
+          @click="updateValue('users')"
+        ></v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
-        <v-divider></v-divider>
+    <div class="">
+      <div v-if="value === 'home'" class="py-4">
+        <customer-list></customer-list>
+      </div>
 
-        <v-list density="compact" nav>
-          <v-list-item
-            prepend-icon="mdi-home-city"
-            title="Home"
-            value="home"
-            @click="updateValue('home')"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-account"
-            title="Mein Konto"
-            value="account"
-            @click="updateValue('account')"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-account-group-outline"
-            title="Benutzer"
-            value="users"
-            @click="updateValue('users')"
-          ></v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-      <v-main style="height: 100%; width: 100vw">
-        <div v-if="value === 'home'" class="py-4">
-          <customer-list></customer-list>
-        </div>
-        <div v-if="value === 'account'">
-          <profile></profile>
-        </div>
-        <div v-if="value === 'users'">Hallo Benutzer</div>
-      </v-main>
-    </v-layout>
-  </v-card>
+      <div v-if="value === 'account'">
+        <profile></profile>
+      </div>
+
+      <div v-if="value === 'users'">Hallo Benutzer</div>
+    </div>
+  </v-layout>
 </template>
 
 <script setup lang="ts">
