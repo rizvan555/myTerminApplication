@@ -8,18 +8,51 @@
         {{ nav.name }}
       </a>
     </div>
+
+    <div class="d-flex justify-space-around">
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn color="primary" v-bind="props">
+            <v-icon>menu</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="myMenu in allNavs.menu"
+            :key="myMenu.id"
+            :value="myMenu.id"
+          >
+            <v-list-item-title
+              ><a :href="myMenu.path">{{ myMenu.name }}</a></v-list-item-title
+            >
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+      <v-menu activator="#menu-activator">
+        <v-list>
+          <v-list-item
+            v-for="myMenu in allNavs.menu"
+            :key="myMenu.id"
+            :value="myMenu.id"
+          >
+            <v-list-item-title>{{ myMenu.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { useNavbarStore } from '../stores/useNavbar';
+import {
+  VMenu,
+  VList,
+  VListItem,
+  VListItemTitle,
+  VBtn,
+} from 'vuetify/components';
 
-export default {
-  props: ['nav'],
-
-  setup() {
-    const allNavs = useNavbarStore();
-    return { allNavs };
-  },
-};
+const allNavs = useNavbarStore();
 </script>

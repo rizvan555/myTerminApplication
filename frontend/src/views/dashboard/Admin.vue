@@ -78,7 +78,7 @@ import axios from 'axios';
 import type { User } from '@/types';
 import { useUsersStore } from '../../stores/useAllUsers';
 import CustomerList from '../../components/CustomerList.vue';
-import Profile from '../../components/Profile.vue';
+import Profile from '../../views/Profile.vue';
 
 const drawer = ref(true);
 const rail = ref(true);

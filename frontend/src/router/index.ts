@@ -12,7 +12,7 @@ import Service7 from '../views/service7.vue';
 import Service8 from '../views/service8.vue';
 import Service9 from '../views/service9.vue';
 import Admin from '../views/dashboard/Admin.vue';
-import { getItem } from '../helper/persistanceStorage';
+import Profile from '../views/Profile.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +82,11 @@ const router = createRouter({
       name: 'admin',
       component: Admin,
       meta: { requiresAuth: true },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
     },
   ],
 });
