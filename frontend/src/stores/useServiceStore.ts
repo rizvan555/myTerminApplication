@@ -1,10 +1,9 @@
-import type { Service, User } from '@/types';
+import type { Service } from '@/types';
 import { defineStore } from 'pinia';
 import haarImage1 from '../assets/images/haar1.jpg';
 import haarImage2 from '../assets/images/haar2.jpg';
 import haarImage3 from '../assets/images/haar3.jpg';
 import haarImage4 from '../assets/images/haar4.jpg';
-import { getItem } from '../helper/persistanceStorage';
 
 interface ServiceState {
   services: Service[];

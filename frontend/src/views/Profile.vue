@@ -5,16 +5,7 @@
     <div class="my-2">
       <h1 class="font-bold text-2xl">Mein Konto</h1>
     </div>
-    <div class="w-[100px] h-[100px] rounded-full border my-6 mx-auto">
-      <img src="{user.image}" alt="userImage" />
-      <v-avatar size="73"></v-avatar>
-    </div>
-    <div class="my-4">
-      <input type="file" ref="fileInput" style="display: none" />
-      <v-btn color="primary">
-        <v-icon>image</v-icon>
-      </v-btn>
-    </div>
+
     <ul
       v-for="user in users"
       class="flex flex-col justify-center items-start text-center mx-auto leading-8"
@@ -44,6 +35,12 @@ import { onMounted } from 'vue';
 import { VAvatar, VBtn } from 'vuetify/components';
 
 const users = ref<User[]>([]);
+const user = ref<User>({
+  username: '',
+  email: '',
+  phone: '',
+  services: [],
+});
 
 onMounted(async () => {
   try {
@@ -56,6 +53,7 @@ onMounted(async () => {
 
     if (response && response.data) {
       users.value = [response.data];
+      user.value = response.data[0];
     }
   } catch (error) {
     console.error('Error fetching users data:', error);

@@ -91,6 +91,12 @@ app.post('/users/login', async (req, res) => {
   }
 });
 
+// Logout Route
+app.post('users/logout', async (req, res) => {
+  console.log('Signing out on the server...');
+  res.status(200).json({ message: 'User logged out successfully' });
+});
+
 // Record Service
 app.post('/users/service', async (req, res) => {
   console.log('Request Body:', req.body);

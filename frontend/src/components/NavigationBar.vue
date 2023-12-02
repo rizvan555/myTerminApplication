@@ -22,8 +22,11 @@
             :key="myMenu.id"
             :value="myMenu.id"
           >
-            <v-list-item-title
-              ><a :href="myMenu.path">{{ myMenu.name }}</a></v-list-item-title
+            <v-list-item-title class="flex justify-center items-center gap-2">
+              <component :is="myMenu.icon" class="w-[20px]" />
+              <a :href="myMenu.path" class="w-[70px]">
+                {{ myMenu.name }}</a
+              ></v-list-item-title
             >
           </v-list-item>
         </v-list>

@@ -24,6 +24,7 @@ const userServiceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  
   selectedService: {
     type: String,
     required: true,
