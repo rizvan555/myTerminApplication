@@ -15,6 +15,7 @@
         :format="format"
         minutes-increment="30"
         minutes-grid-increment="30"
+        :start-time="startTime"
       />
     </div>
   </div>
@@ -115,7 +116,7 @@ const userDetails = inject(
 const token = getItem('token');
 const serviceStore = useServiceStore();
 const services = serviceStore.services;
-
+const startTime = ref({ hours: 8, minutes: 0 });
 const format = (date: any) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
