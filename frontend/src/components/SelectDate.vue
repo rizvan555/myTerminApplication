@@ -6,11 +6,15 @@
     <div class="w-[50vw]">
       <VueDatePicker
         v-model="date"
+        :min-time="{ hours: 8, minutes: 30 }"
+        :max-time="{ hours: 20, minutes: 0 }"
         input-class-name="dp-custom-input"
         :min-date="new Date()"
         :disabled="userDetails.username === ''"
         :disabled-week-days="[0]"
         :format="format"
+        minutes-increment="30"
+        minutes-grid-increment="30"
       />
     </div>
   </div>
