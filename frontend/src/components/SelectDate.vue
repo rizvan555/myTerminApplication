@@ -6,16 +6,17 @@
     <div class="w-[50vw]">
       <VueDatePicker
         v-model="date"
+        :format="format"
         :min-time="{ hours: 8, minutes: 30 }"
         :max-time="{ hours: 20, minutes: 0 }"
         input-class-name="dp-custom-input"
         :min-date="new Date()"
         :disabled="userDetails.username === ''"
         :disabled-week-days="[0]"
-        :format="format"
         minutes-increment="30"
         minutes-grid-increment="30"
         :start-time="startTime"
+        :disabled-times="disabledDates"
       />
     </div>
   </div>
@@ -94,7 +95,7 @@ import { computed, inject, onMounted, ref, defineProps } from 'vue';
 import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
-import type { Errors, FormDataServices } from '@/types';
+import type { CustomerListProps, Errors, FormDataServices } from '@/types';
 import AttentionIcon from '../assets/Icons/icons8-attention.gif';
 import { useServiceStore } from '../stores/useServiceStore';
 
@@ -117,6 +118,7 @@ const token = getItem('token');
 const serviceStore = useServiceStore();
 const services = serviceStore.services;
 const startTime = ref({ hours: 8, minutes: 0 });
+const userLists = ref<CustomerListProps[]>([]);
 const format = (date: any) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
@@ -124,6 +126,21 @@ const format = (date: any) => {
 
   return `Selected date is ${day}/${month}/${year}`;
 };
+
+const disabledDates = computed(() => {
+  return userLists.value.map((userList) => {
+    const datePart = userList.date.split('T')[0];
+    const timePart = userList.date.split('T')[1].split('.')[0];
+    return `${datePart} ${timePart}`;
+  });
+});
+
+// const disabledTimes = computed(() => {
+//   return userLists.value.map((userList) => {
+//     const timePart = userList.date.split('T')[1].split('.')[0];
+//     return timePart;
+//   });
+// });
 
 onMounted(async () => {
   try {
@@ -142,6 +159,24 @@ onMounted(async () => {
     }
   } catch (error) {
     console.error('Error fetching user details:', error);
+  }
+});
+
+onMounted(async () => {
+  try {
+    const response = await fetch('http://localhost:5173/api/users/service', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch user list');
+    }
+    const data = await response.json();
+    userLists.value = data;
+  } catch (error) {
+    console.error('Error fetching user list:', error);
   }
 });
 
