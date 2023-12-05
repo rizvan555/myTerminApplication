@@ -54,7 +54,7 @@
   >
     <div class="flex flex-col justify-center items-center py-4">
       <div class="mb-5 font-bold text-xl">
-        <h1>Ihr Termin</h1>
+        <h1>Ihr Termin ist bestätigt</h1>
         <hr />
       </div>
 
@@ -134,13 +134,6 @@ const disabledDates = computed(() => {
     return `${datePart} ${timePart}`;
   });
 });
-
-// const disabledTimes = computed(() => {
-//   return userLists.value.map((userList) => {
-//     const timePart = userList.date.split('T')[1].split('.')[0];
-//     return timePart;
-//   });
-// });
 
 onMounted(async () => {
   try {
