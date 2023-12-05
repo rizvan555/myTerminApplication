@@ -54,22 +54,29 @@
   >
     <div class="flex flex-col justify-center items-center py-4">
       <div class="mb-5 font-bold text-xl">
-        <h1>Ihr Termin ist bestätigt</h1>
+        <h1>Ihr Termin wurde bestätigt</h1>
         <hr />
       </div>
 
-      <div v-if="date" class="flex gap-2 text-xl">
-        {{ customDateFormatter(date) }}
-      </div>
-
-      <div
-        v-if="date"
-        class="text-center text-2xl flex gap-2"
-        :class="{
-          'text-red-600': !checkTime,
-        }"
-      >
-        {{ customerTime(date) }}
+      <div class="">
+        <div v-if="date" class="flex gap-2 text-base">
+          <p class="font-bold w-[5vw]">Datum:</p>
+          <p>{{ customDateFormatter(date) }}</p>
+        </div>
+        <div
+          v-if="date"
+          class="text-base flex gap-2"
+          :class="{
+            'text-red-600': !checkTime,
+          }"
+        >
+          <p class="font-bold w-[5vw]">Zeit:</p>
+          <p>{{ customerTime(date) }}</p>
+        </div>
+        <div class="flex justify-center items-center gap-2">
+          <p class="font-bold w-[5vw]">Service:</p>
+          <p>{{ userDetails.username ? selectedServiceName : '' }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -116,7 +123,6 @@ const userDetails = inject(
 );
 const token = getItem('token');
 const serviceStore = useServiceStore();
-const services = serviceStore.services;
 const startTime = ref({ hours: 8, minutes: 0 });
 const userLists = ref<CustomerListProps[]>([]);
 const format = (date: any) => {
@@ -126,6 +132,28 @@ const format = (date: any) => {
 
   return `Selected date is ${day}/${month}/${year}`;
 };
+
+const selectedServiceName = computed(() => {
+  if (router.currentRoute.value.path === '/service1') {
+    return 'Trocken schneiden & Styling / Cutting & Styling';
+  } else if (router.currentRoute.value.path === '/service2') {
+    return 'Basis Paket / Basic Package';
+  } else if (router.currentRoute.value.path === '/service3') {
+    return 'Kinderhaarschnitt / Children Haircut';
+  } else if (router.currentRoute.value.path === '/service4') {
+    return 'Augenbrauen zupfen(Faden) / Eyebrow plucking(thread)';
+  } else if (router.currentRoute.value.path === '/service5') {
+    return 'Bartschnitt  & Kontur(Maschine) / Beard Cut & Contour(Machine)';
+  } else if (router.currentRoute.value.path === '/service6') {
+    return 'Bartpflege Classic / Classic Beard Care';
+  } else if (router.currentRoute.value.path === '/service7') {
+    return 'Deluxe Paket / Deluxe Package';
+  } else if (router.currentRoute.value.path === '/service8') {
+    return 'Premium Paket / Deluxe Package';
+  } else if (router.currentRoute.value.path === '/service9') {
+    return 'Nassrasur Model / Wet Shave model';
+  }
+});
 
 const disabledDates = computed(() => {
   return userLists.value.map((userList) => {
