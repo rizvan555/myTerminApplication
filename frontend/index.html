@@ -53,5 +53,20 @@
 
     <script src="https://unpkg.com/vue@latest"></script>
     <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/v-calendar"></script>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            selectedDate: null,
+          };
+        },
+      }).mount('#app');
+    </script>
   </body>
 </html>

@@ -3,8 +3,8 @@
     v-if="!showSuccessMessage"
     class="flex justify-center items-center container my-[4vh] gap-5"
   >
-    <div class="w-[50vw]">
-      <VueDatePicker
+    <div class="w-[35vw]">
+      <!-- <VueDatePicker
         v-model="date"
         :format="format"
         :min-time="{ hours: 8, minutes: 30 }"
@@ -16,7 +16,17 @@
         minutes-increment="30"
         minutes-grid-increment="30"
         :start-time="startTime"
-        :disabled-times="disabledDates"
+        .disabled-dates="disabledDates"
+        :disabled-times="isRange ? rangeDisabledTimes : disabledTimes"
+      /> -->
+
+      <VDatePicker
+        v-model="date"
+        mode="dateTime"
+        is24hr
+        expanded
+        :attributes="attributes"
+        :select-attribute="selectAttribute"
       />
     </div>
   </div>
@@ -98,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, defineProps } from 'vue';
+import { computed, inject, onMounted, ref } from 'vue';
 import axios from 'axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import { useRouter } from 'vue-router';
@@ -106,11 +116,28 @@ import type { CustomerListProps, Errors, FormDataServices } from '@/types';
 import AttentionIcon from '../assets/Icons/icons8-attention.gif';
 import { useServiceStore } from '../stores/useServiceStore';
 
+const selectAttribute = ref({});
+const attributes = ref([
+  {
+    key: 'today',
+    highlight: 'blue',
+  },
+  {
+    key: 'weekend',
+    highlight: 'gray',
+    dates: {
+      repeat: {
+        weekdays: [1],
+      },
+    },
+  },
+]);
+
 const formDataServices = ref<FormDataServices>({
   date: '',
 });
 
-const date = ref<string | null>(null);
+const date = ref(new Date());
 const startDate = ref(new Date());
 const checkTime = ref(true);
 const router = useRouter();
@@ -155,12 +182,49 @@ const selectedServiceName = computed(() => {
   }
 });
 
+const mode = ref('single');
+const isRange = computed(() => mode.value === 'range');
+const disabledTimes = [
+  { hours: 16, minutes: 30 },
+  { hours: 18, minutes: 0 },
+];
+const rangeDisabledTimes = [
+  [
+    { hours: 12, minutes: '*' },
+    { hours: 9, minutes: 10 },
+  ],
+  disabledTimes,
+];
+
 const disabledDates = computed(() => {
-  return userLists.value.map((userList) => {
-    const datePart = userList.date.split('T')[0];
-    const timePart = userList.date.split('T')[1].split('.')[0];
-    return `${datePart} ${timePart}`;
-  });
+  if (!date.value) return [];
+
+  const selectedDate = new Date(date.value);
+  const selectedDateString = selectedDate.toISOString().split('T')[0];
+  console.log(selectedDateString); // date
+
+  const selectedTimeDate = new Date(
+    `2000-01-01T${selectedDate.toISOString().split('T')[1]}`
+  );
+  selectedTimeDate.setHours(selectedTimeDate.getHours() + 1);
+  const selectedTimeString = selectedTimeDate.toISOString().split('T')[1][1];
+  console.log(selectedTimeString); // time
+
+  return userLists.value
+    .filter((userList) => {
+      const userListDate = new Date(userList.date);
+      return (
+        userListDate.getDate() === selectedDate.getDate() &&
+        userListDate.getMonth() === selectedDate.getMonth() &&
+        userListDate.getFullYear() === selectedDate.getFullYear()
+      );
+    })
+    .map(() => {
+      return {
+        date: selectedDateString,
+        disabled: true,
+      };
+    });
 });
 
 onMounted(async () => {
