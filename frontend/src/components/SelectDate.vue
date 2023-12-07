@@ -27,6 +27,7 @@
         expanded
         :attributes="attributes"
         :select-attribute="selectAttribute"
+        :rules="rules"
       />
     </div>
   </div>
@@ -132,6 +133,12 @@ const attributes = ref([
     },
   },
 ]);
+const rules = ref([
+  {
+    hours: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    minutes: [0, 30],
+  },
+]);
 
 const formDataServices = ref<FormDataServices>({
   date: '',
@@ -196,36 +203,36 @@ const rangeDisabledTimes = [
   disabledTimes,
 ];
 
-const disabledDates = computed(() => {
-  if (!date.value) return [];
+// const disabledDates = computed(() => {
+//   if (!date.value) return [];
 
-  const selectedDate = new Date(date.value);
-  const selectedDateString = selectedDate.toISOString().split('T')[0];
-  console.log(selectedDateString); // date
+//   const selectedDate = new Date(date.value);
+//   const selectedDateString = selectedDate.toISOString().split('T')[0];
+//   console.log(selectedDateString); // date
 
-  const selectedTimeDate = new Date(
-    `2000-01-01T${selectedDate.toISOString().split('T')[1]}`
-  );
-  selectedTimeDate.setHours(selectedTimeDate.getHours() + 1);
-  const selectedTimeString = selectedTimeDate.toISOString().split('T')[1][1];
-  console.log(selectedTimeString); // time
+//   const selectedTimeDate = new Date(
+//     `2000-01-01T${selectedDate.toISOString().split('T')[1]}`
+//   );
+//   selectedTimeDate.setHours(selectedTimeDate.getHours() + 1);
+//   const selectedTimeString = selectedTimeDate.toISOString().split('T')[1][1];
+//   console.log(selectedTimeString); // time
 
-  return userLists.value
-    .filter((userList) => {
-      const userListDate = new Date(userList.date);
-      return (
-        userListDate.getDate() === selectedDate.getDate() &&
-        userListDate.getMonth() === selectedDate.getMonth() &&
-        userListDate.getFullYear() === selectedDate.getFullYear()
-      );
-    })
-    .map(() => {
-      return {
-        date: selectedDateString,
-        disabled: true,
-      };
-    });
-});
+//   return userLists.value
+//     .filter((userList) => {
+//       const userListDate = new Date(userList.date);
+//       return (
+//         userListDate.getDate() === selectedDate.getDate() &&
+//         userListDate.getMonth() === selectedDate.getMonth() &&
+//         userListDate.getFullYear() === selectedDate.getFullYear()
+//       );
+//     })
+//     .map(() => {
+//       return {
+//         date: selectedDateString,
+//         disabled: true,
+//       };
+//     });
+// });
 
 onMounted(async () => {
   try {
