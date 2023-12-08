@@ -4,7 +4,7 @@
       v-if="!showSuccessMessage"
       class="flex justify-center items-center container my-[4vh] gap-5"
     >
-      <div class="w-[50vw]">
+      <div class="w-[50vw] calendar rounded-lg">
         <VDatePicker
           v-model="date"
           mode="date"
@@ -73,23 +73,41 @@
         v-for="timeSlot in timeSlots"
         :key="timeSlot.start"
       >
-        <div
-          class="flex justify-between items-center"
-          :class="{
-            'line-through':
-              getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
-          }"
-        >
-          <div class="flex items-center gap-2 py-8 px-10">
+        <div class="flex justify-between items-center">
+          <div
+            class="flex items-center gap-2 py-8 px-10"
+            :class="{
+              'text-gray-400':
+                getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+            }"
+          >
             <MaterialSymbolsAlarm class="w-5 h-5" />
-            <div>{{ timeSlot.display }}</div>
+            <div
+              :class="{
+                'text-gray-400':
+                  getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+              }"
+            >
+              {{ timeSlot.display }}
+            </div>
           </div>
           <button
             ref="submitButton"
             @click="($event) => handleSubmit($event, timeSlot.id)"
-            class="btn btn-primary mr-13"
+            class="btn btn-success mr-13"
+            :class="{
+              'btn btn-danger':
+                getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+            }"
+            :disabled="
+              Boolean(getTimeAndDate && getTimeAndDate.includes(timeSlot.start))
+            "
           >
-            {{ !showSuccessMessage ? 'Available' : 'Unavailable' }}
+            {{
+              getTimeAndDate && getTimeAndDate.includes(timeSlot.start)
+                ? 'Nicht verfügbar'
+                : 'Verfügbar'
+            }}
           </button>
         </div>
         <hr class="w-[45vw] mx-auto" />
