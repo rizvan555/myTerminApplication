@@ -1,5 +1,5 @@
 <template>
-  <div class="border w-[60vw] mx-auto my-4 pt-1 pb-4 appointment-check">
+  <div class="border w-[60vw] mx-auto my-4 pt-1 pb-4 appointment-check ">
     <div class="" v-if="!showSuccessMessage && userDetails.username">
       <div class="flex justify-center items-center gap-2 mb-[-25px] mx-auto">
         <p class="text-l">Hallo</p>

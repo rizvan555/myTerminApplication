@@ -5,6 +5,7 @@ export interface FormData {
   phone: string;
 }
 export interface FormDataServices {
+  [x: string]: any;
   date: string | null;
 }
 

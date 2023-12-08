@@ -1,110 +1,94 @@
 <template>
-  <div
-    v-if="!showSuccessMessage"
-    class="flex justify-center items-center container my-[4vh] gap-5"
-  >
-    <div class="w-[35vw]">
-      <!-- <VueDatePicker
-        v-model="date"
-        :format="format"
-        :min-time="{ hours: 8, minutes: 30 }"
-        :max-time="{ hours: 20, minutes: 0 }"
-        input-class-name="dp-custom-input"
-        :min-date="new Date()"
-        :disabled="userDetails.username === ''"
-        :disabled-week-days="[0]"
-        minutes-increment="30"
-        minutes-grid-increment="30"
-        :start-time="startTime"
-        .disabled-dates="disabledDates"
-        :disabled-times="isRange ? rangeDisabledTimes : disabledTimes"
-      /> -->
-
-      <VDatePicker
-        v-model="date"
-        mode="dateTime"
-        is24hr
-        expanded
-        :attributes="attributes"
-        :select-attribute="selectAttribute"
-        :rules="rules"
-      />
+  <div class="bg-slate-100 py-2">
+    <div
+      v-if="!showSuccessMessage"
+      class="flex justify-center items-center container my-[4vh] gap-5"
+    >
+      <div class="w-[50vw]">
+        <VDatePicker
+          v-model="date"
+          mode="date"
+          is24hr
+          expanded
+          :attributes="attributes"
+          :select-attribute="selectAttribute"
+          :rules="rules"
+          :disabled-dates="disabledDates"
+          :disabled="userDetails.username === ''"
+          :min-date="startDate"
+        />
+      </div>
     </div>
-  </div>
-  <div
-    class="flex flex-col justify-center items-center"
-    v-if="userDetails.username === ''"
-  >
-    <img :src="AttentionIcon" alt="AttentionIcon" class="w-16" />
-    <h1 class="text-red-500 text-center text-xl mb-4">
-      Sie müssen sich anmelden
-    </h1>
-  </div>
-  <div
-    class="flex flex-col justify-center items-center gap-4"
-    v-if="!showSuccessMessage"
-  >
-    <div v-if="date" class="flex gap-2 text-xl">
-      {{ customDateFormatter(date) }}
+    <div
+      class="flex flex-col justify-center items-center"
+      v-if="userDetails.username === ''"
+    >
+      <img :src="AttentionIcon" alt="AttentionIcon" class="w-16" />
+      <h1 class="text-red-500 text-center text-xl mb-4">
+        Sie müssen sich anmelden
+      </h1>
     </div>
 
     <div
-      v-if="date"
-      class="text-center text-2xl flex gap-2"
-      :class="{
-        'text-red-600': !checkTime,
-      }"
+      class="flex justify-center items-center w-[30vw] mx-auto my-[10vh]"
+      v-if="showSuccessMessage"
     >
-      {{ customerTime(date) }}
-    </div>
-  </div>
-
-  <div
-    class="flex justify-center items-center w-[30vw] mx-auto my-[10vh]"
-    v-if="showSuccessMessage"
-  >
-    <div class="flex flex-col justify-center items-center py-4">
-      <div class="mb-5 font-bold text-xl">
-        <h1>Ihr Termin wurde bestätigt</h1>
-        <hr />
-      </div>
-
-      <div class="">
-        <div v-if="date" class="flex gap-2 text-base">
-          <p class="font-bold w-[5vw]">Datum:</p>
-          <p>{{ customDateFormatter(date) }}</p>
+      <div class="flex flex-col justify-center items-center py-4">
+        <div class="mb-5 font-bold text-xl">
+          <h1>Ihr Termin wurde bestätigt</h1>
+          <hr />
         </div>
-        <div
-          v-if="date"
-          class="text-base flex gap-2"
-          :class="{
-            'text-red-600': !checkTime,
-          }"
-        >
-          <p class="font-bold w-[5vw]">Zeit:</p>
-          <p>{{ customerTime(date) }}</p>
-        </div>
-        <div class="flex justify-center items-center gap-2">
-          <p class="font-bold w-[5vw]">Service:</p>
-          <p>{{ userDetails.username ? selectedServiceName : '' }}</p>
+
+        <div class="">
+          <div v-if="date" class="flex gap-2 text-base">
+            <p class="font-bold w-[5vw]">Datum:</p>
+            <p>{{ customDateFormatter(date) }}</p>
+          </div>
+          <div
+            v-if="date"
+            class="text-base flex gap-2"
+            :class="{
+              'text-red-600': !checkTime,
+            }"
+          >
+            <p class="font-bold w-[5vw]">Zeit:</p>
+            <p>{{ formDataServices.selectedTimeStart }}</p>
+          </div>
+          <div class="flex justify-center items-center gap-2">
+            <p class="font-bold w-[5vw]">Service:</p>
+            <p>{{ userDetails.username ? selectedServiceName : '' }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div
-    class="mx-auto bn39 mt-8"
-    v-if="!showSuccessMessage && userDetails.username"
-  >
-    <button
-      type="submit"
-      @click="handleSubmit"
-      v-if="!showSuccessMessage && userDetails.username"
-      :disabled="!date || isSubmitting"
-      class="bn39span"
-    >
-      Submit
-    </button>
+    <div class="border mx-6 rounded-sm bg-white">
+      <div
+        v-if="
+          date && selectAttribute && !showSuccessMessage && userDetails.username
+        "
+        v-for="timeSlot in timeSlots"
+        :key="timeSlot.start"
+      >
+        <div class="flex justify-between items-center">
+          <div
+            class="flex items-center gap-2 py-8 px-10"
+            :class="{ 'bg-red-500': !position }"
+          >
+            <MaterialSymbolsAlarm class="w-4 h-4" />
+            <div>{{ timeSlot.display }}</div>
+          </div>
+          <button
+            ref="submitButton"
+            @click="($event) => handleSubmit($event, timeSlot.id)"
+            class="btn btn-primary mr-13"
+          >
+            {{ !showSuccessMessage ? 'Available' : 'Unavailable' }}
+          </button>
+        </div>
+        <hr class="w-[50vw] mx-auto" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -116,32 +100,13 @@ import { useRouter } from 'vue-router';
 import type { CustomerListProps, Errors, FormDataServices } from '@/types';
 import AttentionIcon from '../assets/Icons/icons8-attention.gif';
 import { useServiceStore } from '../stores/useServiceStore';
-
-const selectAttribute = ref({});
-const attributes = ref([
-  {
-    key: 'today',
-    highlight: 'blue',
-  },
-  {
-    key: 'weekend',
-    highlight: 'gray',
-    dates: {
-      repeat: {
-        weekdays: [1],
-      },
-    },
-  },
-]);
-const rules = ref([
-  {
-    hours: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-    minutes: [0, 30],
-  },
-]);
+import type { VDatePicker } from 'vuetify/components';
+import MaterialSymbolsAlarm from '../assets/Icons/Clock.vue';
+import SlotTimeComp from './SlotTimeComp.vue';
 
 const formDataServices = ref<FormDataServices>({
   date: '',
+  selectedTimeStart: '',
 });
 
 const date = ref(new Date());
@@ -157,15 +122,41 @@ const userDetails = inject(
 );
 const token = getItem('token');
 const serviceStore = useServiceStore();
-const startTime = ref({ hours: 8, minutes: 0 });
 const userLists = ref<CustomerListProps[]>([]);
-const format = (date: any) => {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+const selectAttribute = ref({});
+const position = ref(true);
+const attributes = ref([
+  {
+    key: 'today',
+    highlight: 'blue',
+  },
+  {
+    key: 'weekend',
+    dot: 'red',
+    dates: {
+      repeat: {
+        weekdays: [1],
+      },
+    },
+  },
+]);
+const rules = ref([
+  {
+    hours: {
+      min: 8,
+      max: 20,
+    },
+    minutes: { interval: 30 },
+  },
+]);
 
-  return `Selected date is ${day}/${month}/${year}`;
-};
+const disabledDates = ref([
+  {
+    repeat: {
+      weekdays: [1],
+    },
+  },
+]);
 
 const selectedServiceName = computed(() => {
   if (router.currentRoute.value.path === '/service1') {
@@ -189,50 +180,99 @@ const selectedServiceName = computed(() => {
   }
 });
 
-const mode = ref('single');
-const isRange = computed(() => mode.value === 'range');
-const disabledTimes = [
-  { hours: 16, minutes: 30 },
-  { hours: 18, minutes: 0 },
-];
-const rangeDisabledTimes = [
-  [
-    { hours: 12, minutes: '*' },
-    { hours: 9, minutes: 10 },
-  ],
-  disabledTimes,
-];
-
-// const disabledDates = computed(() => {
-//   if (!date.value) return [];
-
-//   const selectedDate = new Date(date.value);
-//   const selectedDateString = selectedDate.toISOString().split('T')[0];
-//   console.log(selectedDateString); // date
-
-//   const selectedTimeDate = new Date(
-//     `2000-01-01T${selectedDate.toISOString().split('T')[1]}`
-//   );
-//   selectedTimeDate.setHours(selectedTimeDate.getHours() + 1);
-//   const selectedTimeString = selectedTimeDate.toISOString().split('T')[1][1];
-//   console.log(selectedTimeString); // time
-
-//   return userLists.value
-//     .filter((userList) => {
-//       const userListDate = new Date(userList.date);
-//       return (
-//         userListDate.getDate() === selectedDate.getDate() &&
-//         userListDate.getMonth() === selectedDate.getMonth() &&
-//         userListDate.getFullYear() === selectedDate.getFullYear()
-//       );
-//     })
-//     .map(() => {
-//       return {
-//         date: selectedDateString,
-//         disabled: true,
-//       };
-//     });
-// });
+const timeSlots = ref([
+  {
+    id: 1,
+    start: '08:00',
+    end: '08:30',
+    display: '08:00 am - 08:30 am',
+    position: true,
+  },
+  {
+    id: 2,
+    start: '09:00',
+    end: '09:30',
+    display: '09:00 am - 09:30 am',
+    position: true,
+  },
+  {
+    id: 3,
+    start: '10:00',
+    end: '10:30',
+    display: '10:00 am - 10:30 am',
+    position: true,
+  },
+  {
+    id: 4,
+    start: '11:00',
+    end: '11:30',
+    display: '11:00 am - 11:30 am',
+    position: true,
+  },
+  {
+    id: 5,
+    start: '12:00',
+    end: '12:30',
+    display: '12:00 am - 12:30 am',
+    position: true,
+  },
+  {
+    id: 6,
+    start: '13:00',
+    end: '13:30',
+    display: '13:00 am - 13:30 am',
+    position: true,
+  },
+  {
+    id: 7,
+    start: '14:00',
+    end: '14:30',
+    display: '14:00 am - 14:30 am',
+    position: true,
+  },
+  {
+    id: 8,
+    start: '15:00',
+    end: '15:30',
+    display: '15:00 am - 15:30 am',
+    position: true,
+  },
+  {
+    id: 9,
+    start: '16:00',
+    end: '16:30',
+    display: '16:00 am - 16:30 am',
+    position: true,
+  },
+  {
+    id: 10,
+    start: '17:00',
+    end: '17:30',
+    display: '17:00 am - 17:30 am',
+    position: true,
+  },
+  {
+    id: 11,
+    start: '18:00',
+    end: '18:30',
+    display: '18:00 am - 18:30 am',
+    position: true,
+  },
+  {
+    id: 12,
+    start: '19:00',
+    end: '19:30',
+    display: '19:00 am - 19:30 am',
+    position: true,
+  },
+  {
+    id: 13,
+    start: '20:00',
+    end: '20:30',
+    display: '20:00 am - 20:30 am',
+    position: true,
+  },
+]);
 
 onMounted(async () => {
   try {
@@ -272,7 +312,7 @@ onMounted(async () => {
   }
 });
 
-const handleSubmit = async (e: any) => {
+const handleSubmit = async (e: any, timeSlotId: number) => {
   e.preventDefault();
   try {
     const config = {
@@ -283,29 +323,8 @@ const handleSubmit = async (e: any) => {
       withCredentials: true,
     };
     isSubmitting.value = true;
-    formDataServices.value.date = date.value;
-
-    const selectedServiceName = computed(() => {
-      if (router.currentRoute.value.path === '/service1') {
-        return 'Trocken schneiden & Styling / Cutting & Styling';
-      } else if (router.currentRoute.value.path === '/service2') {
-        return 'Basis Paket / Basic Package';
-      } else if (router.currentRoute.value.path === '/service3') {
-        return 'Kinderhaarschnitt / Children Haircut';
-      } else if (router.currentRoute.value.path === '/service4') {
-        return 'Augenbrauen zupfen(Faden) / Eyebrow plucking(thread)';
-      } else if (router.currentRoute.value.path === '/service5') {
-        return 'Bartschnitt  & Kontur(Maschine) / Beard Cut & Contour(Machine)';
-      } else if (router.currentRoute.value.path === '/service6') {
-        return 'Bartpflege Classic / Classic Beard Care';
-      } else if (router.currentRoute.value.path === '/service7') {
-        return 'Deluxe Paket / Deluxe Package';
-      } else if (router.currentRoute.value.path === '/service8') {
-        return 'Premium Paket / Deluxe Package';
-      } else if (router.currentRoute.value.path === '/service9') {
-        return 'Nassrasur Model / Wet Shave model';
-      }
-    });
+    position.value = true;
+    formDataServices.value.date = date.value.toISOString();
 
     const selectedDate = new Date(String(formDataServices.value.date));
     selectedDate.setHours(selectedDate.getHours() + 1);
@@ -322,6 +341,13 @@ const handleSubmit = async (e: any) => {
       config
     );
 
+    const selectedTimeSlot = timeSlots.value.find(
+      (slot) => slot.id === timeSlotId
+    );
+    formDataServices.value.selectedTimeStart = selectedTimeSlot
+      ? selectedTimeSlot.start
+      : '';
+
     if (response.data.token) {
       setItem('token', response.data.token);
     }
@@ -331,6 +357,7 @@ const handleSubmit = async (e: any) => {
     console.log('Server Error:', error.response.data);
   } finally {
     isSubmitting.value = false;
+    position.value = false;
   }
   console.error('Registration Error:', errors.value);
 };
