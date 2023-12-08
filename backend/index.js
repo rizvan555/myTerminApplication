@@ -181,6 +181,7 @@ app.get('/users/service', async (req, res) => {
         phone: userService.phone,
         date: userService.date,
         selectedService: userService.selectedService,
+        selectedTimeStart: userService.selectedTimeStart,
       }))
     );
   } catch (error) {

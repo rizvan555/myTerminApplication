@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <div class="border mx-14 rounded-sm bg-white">
+    <div class="border mx-14 rounded-lg bg-white">
       <div
         v-if="
           date && selectAttribute && !showSuccessMessage && userDetails.username
@@ -73,11 +73,14 @@
         v-for="timeSlot in timeSlots"
         :key="timeSlot.start"
       >
-        <div class="flex justify-between items-center">
-          <div
-            class="flex items-center gap-2 py-8 px-10"
-            :class="{ 'bg-red-500': !position }"
-          >
+        <div
+          class="flex justify-between items-center"
+          :class="{
+            'line-through':
+              getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+          }"
+        >
+          <div class="flex items-center gap-2 py-8 px-10">
             <MaterialSymbolsAlarm class="w-5 h-5" />
             <div>{{ timeSlot.display }}</div>
           </div>
@@ -105,8 +108,9 @@ import AttentionIcon from '../assets/Icons/icons8-attention.gif';
 import { useServiceStore } from '../stores/useServiceStore';
 import type { VDatePicker } from 'vuetify/components';
 import MaterialSymbolsAlarm from '../assets/Icons/Clock.vue';
-import SlotTimeComp from './SlotTimeComp.vue';
+import { watch } from 'vue';
 
+type BlockedTimes = string[];
 const formDataServices = ref<FormDataServices>({
   date: '',
   selectedTimeStart: '',
@@ -216,66 +220,89 @@ const timeSlots = ref([
     id: 5,
     start: '12:00',
     end: '12:30',
-    display: '12:00 am - 12:30 am',
+    display: '12:00 pm - 12:30 pm',
     position: true,
   },
   {
     id: 6,
     start: '13:00',
     end: '13:30',
-    display: '13:00 am - 13:30 am',
+    display: '13:00 pm - 13:30 pm',
     position: true,
   },
   {
     id: 7,
     start: '14:00',
     end: '14:30',
-    display: '14:00 am - 14:30 am',
+    display: '14:00 pm - 14:30 pm',
     position: true,
   },
   {
     id: 8,
     start: '15:00',
     end: '15:30',
-    display: '15:00 am - 15:30 am',
+    display: '15:00 pm - 15:30 pm',
     position: true,
   },
   {
     id: 9,
     start: '16:00',
     end: '16:30',
-    display: '16:00 am - 16:30 am',
+    display: '16:00 pm - 16:30 pm',
     position: true,
   },
   {
     id: 10,
     start: '17:00',
     end: '17:30',
-    display: '17:00 am - 17:30 am',
+    display: '17:00 pm - 17:30 pm',
     position: true,
   },
   {
     id: 11,
     start: '18:00',
     end: '18:30',
-    display: '18:00 am - 18:30 am',
+    display: '18:00 pm - 18:30 pm',
     position: true,
   },
   {
     id: 12,
     start: '19:00',
     end: '19:30',
-    display: '19:00 am - 19:30 am',
+    display: '19:00 pm - 19:30 pm',
     position: true,
   },
   {
     id: 13,
     start: '20:00',
     end: '20:30',
-    display: '20:00 am - 20:30 am',
+    display: '20:00 pm - 20:30 pm',
     position: true,
   },
 ]);
+
+const getTimeAndDate = computed(() => {
+  const selectedDate = new Date(date.value);
+  const blockedTimes: BlockedTimes = [];
+
+  if (userLists.value.length > 0) {
+    userLists.value.forEach((user: any) => {
+      const userServiceDate = new Date(user.date);
+      const userServiceTime = user.selectedTimeStart;
+
+      if (userServiceDate.toDateString() === selectedDate.toDateString()) {
+        blockedTimes.push(userServiceTime);
+      }
+    });
+  }
+
+  return blockedTimes;
+});
+
+watch(userLists, () => {
+  getTimeAndDate.value;
+  formDataServices.value.selectedTimeStart = '';
+});
 
 onMounted(async () => {
   try {
@@ -327,7 +354,10 @@ const handleSubmit = async (e: any, timeSlotId: number) => {
     };
     isSubmitting.value = true;
     position.value = true;
-    formDataServices.value.date = date.value.toISOString();
+
+    const dateWithoutTime = new Date(date.value);
+    dateWithoutTime.setHours(0, 0, 0, 0);
+    formDataServices.value.date = dateWithoutTime.toISOString();
 
     const selectedDate = new Date(String(formDataServices.value.date));
     selectedDate.setHours(selectedDate.getHours() + 1);
@@ -351,14 +381,12 @@ const handleSubmit = async (e: any, timeSlotId: number) => {
       },
       config
     );
-    console.log(formDataServices.value.selectedTimeStart);
 
     if (response.data.token) {
       setItem('token', response.data.token);
     }
     showSuccessMessage.value = true;
     console.log('Success:', response.data);
-    console.log('Form Data:', formDataServices.value.selectedTimeStart);
   } catch (error: any) {
     console.log('Server Error:', error.response.data);
   } finally {
