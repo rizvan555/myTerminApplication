@@ -30,7 +30,7 @@
     </div>
 
     <div
-      class="flex justify-center items-center w-[30vw] mx-auto my-[10vh]"
+      class="flex justify-center items-center w-[50vw] mx-auto my-[10vh]"
       v-if="showSuccessMessage"
     >
       <div class="flex flex-col justify-center items-center py-4">
@@ -42,7 +42,7 @@
         <div class="">
           <div v-if="date" class="flex gap-2 text-base">
             <p class="font-bold w-[5vw]">Datum:</p>
-            <p>{{ customDateFormatter(date) }}</p>
+            <p>{{ customDateFormatter(date.toString()) }}</p>
           </div>
           <div
             v-if="date"
@@ -52,7 +52,11 @@
             }"
           >
             <p class="font-bold w-[5vw]">Zeit:</p>
-            <p>{{ formDataServices.selectedTimeStart }}</p>
+            <p>
+              {{
+                userDetails.username ? formDataServices.selectedTimeStart : ''
+              }}
+            </p>
           </div>
           <div class="flex justify-center items-center gap-2">
             <p class="font-bold w-[5vw]">Service:</p>
@@ -329,6 +333,13 @@ const handleSubmit = async (e: any, timeSlotId: number) => {
     const selectedDate = new Date(String(formDataServices.value.date));
     selectedDate.setHours(selectedDate.getHours() + 1);
 
+    const selectedTimeSlot = timeSlots.value.find(
+      (slot) => slot.id === timeSlotId
+    );
+    formDataServices.value.selectedTimeStart = selectedTimeSlot
+      ? selectedTimeSlot.start
+      : '';
+
     const response = await axios.post(
       '/api/users/service',
       {
@@ -337,22 +348,18 @@ const handleSubmit = async (e: any, timeSlotId: number) => {
         username: userDetails.value.username,
         phone: userDetails.value.phone,
         selectedService: selectedServiceName.value,
+        selectedTimeStart: formDataServices.value.selectedTimeStart,
       },
       config
     );
-
-    const selectedTimeSlot = timeSlots.value.find(
-      (slot) => slot.id === timeSlotId
-    );
-    formDataServices.value.selectedTimeStart = selectedTimeSlot
-      ? selectedTimeSlot.start
-      : '';
+    console.log(formDataServices.value.selectedTimeStart);
 
     if (response.data.token) {
       setItem('token', response.data.token);
     }
     showSuccessMessage.value = true;
     console.log('Success:', response.data);
+    console.log('Form Data:', formDataServices.value.selectedTimeStart);
   } catch (error: any) {
     console.log('Server Error:', error.response.data);
   } finally {

@@ -109,9 +109,6 @@ app.post('/users/service', async (req, res) => {
     }
     const token = tokenHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-    const userId = decodedToken.userId;
-    const selectedService = req.body.selectedService;
-    const phone = req.body.phone;
 
     const updatedUserService = await UserService.findOneAndUpdate(
       { email: req.body.email },
@@ -119,9 +116,10 @@ app.post('/users/service', async (req, res) => {
         $set: {
           date: req.body.date,
           username: req.body.username,
-          phone: phone,
-          userId: userId,
-          selectedService: selectedService,
+          phone: req.body.phone,
+          userId: decodedToken.userId,
+          selectedService: req.body.selectedService,
+          selectedTimeStart: req.body.selectedTimeStart,
         },
         $unset: { __v: 1 },
       },

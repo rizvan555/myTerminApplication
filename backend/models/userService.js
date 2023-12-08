@@ -29,7 +29,7 @@ const userServiceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  timeSlot: {
+  selectedTimeStart: {
     type: String,
     required: true,
   },
