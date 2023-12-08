@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-100 py-2">
+  <div class="py-2">
     <div
       v-if="!showSuccessMessage"
       class="flex justify-center items-center container my-[4vh] gap-5"
@@ -34,9 +34,8 @@
       v-if="showSuccessMessage"
     >
       <div class="flex flex-col justify-center items-center py-4">
-        <div class="mb-5 font-bold text-xl">
+        <div class="mb-10 font-bold text-xl">
           <h1>Ihr Termin wurde bestätigt</h1>
-          <hr />
         </div>
 
         <div class="">
@@ -66,7 +65,7 @@
       </div>
     </div>
 
-    <div class="border mx-6 rounded-sm bg-white">
+    <div class="border mx-14 rounded-sm bg-white">
       <div
         v-if="
           date && selectAttribute && !showSuccessMessage && userDetails.username
@@ -79,7 +78,7 @@
             class="flex items-center gap-2 py-8 px-10"
             :class="{ 'bg-red-500': !position }"
           >
-            <MaterialSymbolsAlarm class="w-4 h-4" />
+            <MaterialSymbolsAlarm class="w-5 h-5" />
             <div>{{ timeSlot.display }}</div>
           </div>
           <button
@@ -90,7 +89,7 @@
             {{ !showSuccessMessage ? 'Available' : 'Unavailable' }}
           </button>
         </div>
-        <hr class="w-[50vw] mx-auto" />
+        <hr class="w-[45vw] mx-auto" />
       </div>
     </div>
   </div>
