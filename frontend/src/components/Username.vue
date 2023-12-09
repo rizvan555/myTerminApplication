@@ -2,7 +2,7 @@
   <div
     v-for="user in users"
     :key="user.email"
-    class="text-center my-2 text-l font-bold"
+    class="text-center my-2 text-l font-semibold"
   >
     {{ user.username }}
   </div>
