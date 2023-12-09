@@ -3,7 +3,7 @@
     <div v-for="service in services" :key="service.id">
       <router-link :to="service.path">
         <div
-          class="flex justify-center items-center border px-2 py-3 mb-2 rounded bg-slate-100 service-card"
+          class="flex justify-center items-center border px-2 py-3 mb-2 rounded bg-white service-card"
         >
           <div class="w-[40vw] flex justify-center items-center">
             <img

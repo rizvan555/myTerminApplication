@@ -7,16 +7,18 @@
           <th class="text-left">E-Mail</th>
           <th class="text-left">Phone</th>
           <th class="text-left">Service</th>
-          <th class="text-left">Date</th>
+          <th class="text-left">Datum</th>
+          <th class="text-left">Uhr</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user in sortedUserList" :key="user.username">
-          <td class="text-[13px]">{{ user.username }}</td>
+          <td class="text-[13px] w-[20vw]">{{ user.username }}</td>
           <td class="text-[13px]">{{ user.email }}</td>
           <td class="text-[13px]">{{ user.phone }}</td>
-          <td class="text-[13px]">{{ user.selectedService }}</td>
-          <td class="text-[13px] w-[17vw]">{{ user.date }}</td>
+          <td class="text-[13px] w-[26vw]">{{ user.selectedService }}</td>
+          <td class="text-[13px] w-[17vw]">{{ user.date.split('T')[0] }}</td>
+          <td class="text-[13px] w-[8vw]">{{ user.selectedTimeStart }}</td>
         </tr>
       </tbody>
     </v-table>

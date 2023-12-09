@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-page">
+  <div class="auth-page h-[100vh]">
     <div class="container page">
       <div class="row">
         <div class="flex flex-col gap-2 col-md-6 offset-md-3 col-xs-12">

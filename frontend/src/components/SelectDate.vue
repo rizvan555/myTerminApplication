@@ -16,6 +16,7 @@
           :disabled-dates="disabledDates"
           :disabled="userDetails.username === ''"
           :min-date="startDate"
+          style="background-color: #f8f6f1"
         />
       </div>
     </div>
@@ -65,7 +66,7 @@
       </div>
     </div>
 
-    <div class="border rounded-lg bg-white w-[40vw] mx-auto">
+    <div class="border rounded-lg w-[40vw] mx-auto bg-[#f8f6f1]">
       <div
         v-if="
           date && selectAttribute && !showSuccessMessage && userDetails.username

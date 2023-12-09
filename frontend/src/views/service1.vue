@@ -1,6 +1,8 @@
 <template>
-  <div class="border w-[60vw] mx-auto my-4 pt-1 pb-4 appointment-check ">
-    <div class="" v-if="!showSuccessMessage && userDetails.username">
+  <div
+    class="border w-[60vw] mx-auto my-4 pt-1 pb-4 appointment-check bg-white h-full"
+  >
+    <div class="h-full" v-if="!showSuccessMessage && userDetails.username">
       <div class="flex justify-center items-center gap-2 mb-[-25px] mx-auto">
         <p class="text-l">Hallo</p>
         <user-name />
@@ -12,10 +14,10 @@
     </div>
 
     <div
-      class="flex flex-col justify-center items-center mt-2 gap-3"
+      class="flex flex-col justify-center items-center mt-2 mx-auto py-2 gap-2 w-[18vw]"
       v-if="!showSuccessMessage && userDetails.username"
     >
-      <h6 class="text-[#3f50b5] font-bold">Wählen Sie Ihren Termin</h6>
+      <h6 class="font-bold">Wählen Sie Ihren Termin</h6>
       <img :src="DownArrow" alt="Down Arrow" class="" />
     </div>
 
