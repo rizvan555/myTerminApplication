@@ -71,3 +71,29 @@
 .calendar {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+.vc-container .vc-weekday-1,
+.vc-container .vc-weekday-7 {
+  color: red;
+}
+
+.vc-container .vc-weekday-1,
+.vc-container .vc-weekday-2,
+.vc-container .vc-weekday-3,
+.vc-container .vc-weekday-4,
+.vc-container .vc-weekday-5,
+.vc-container .vc-weekday-6,
+.vc-container .vc-weekday-7 {
+  background-color: gray;
+}
+
+.vc-container .vc-weekday-2,
+.vc-container .vc-weekday-3,
+.vc-container .vc-weekday-4,
+.vc-container .vc-weekday-5,
+.vc-container .vc-weekday-6 {
+  color: #fff;
+}
+
+.vc-container .vc-month {
+  color: red;
+}

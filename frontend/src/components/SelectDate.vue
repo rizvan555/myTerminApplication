@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <div class="border mx-14 rounded-lg bg-white">
+    <div class="border rounded-lg bg-white w-[40vw] mx-auto">
       <div
         v-if="
           date && selectAttribute && !showSuccessMessage && userDetails.username
@@ -75,42 +75,59 @@
       >
         <div class="flex justify-between items-center">
           <div
-            class="flex items-center gap-2 py-8 px-10"
+            class="flex items-center gap-2 py-6 px-10"
             :class="{
               'text-gray-400':
-                getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+                (getTimeAndDate && getTimeAndDate.includes(timeSlot.start)) ||
+                new Date(date) < new Date(Date.now()),
             }"
           >
             <MaterialSymbolsAlarm class="w-5 h-5" />
             <div
               :class="{
                 'text-gray-400':
-                  getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+                  (getTimeAndDate && getTimeAndDate.includes(timeSlot.start)) ||
+                  new Date(date) < new Date(Date.now()),
               }"
             >
               {{ timeSlot.display }}
             </div>
           </div>
+
           <button
             ref="submitButton"
             @click="($event) => handleSubmit($event, timeSlot.id)"
-            class="btn btn-success mr-13"
+            class="text-green-500 mr-10"
             :class="{
-              'btn btn-danger':
-                getTimeAndDate && getTimeAndDate.includes(timeSlot.start),
+              ' text-red-500':
+                (getTimeAndDate && getTimeAndDate.includes(timeSlot.start)) ||
+                new Date(date) < new Date(Date.now()),
             }"
             :disabled="
-              Boolean(getTimeAndDate && getTimeAndDate.includes(timeSlot.start))
+              Boolean(
+                getTimeAndDate && getTimeAndDate.includes(timeSlot.start)
+              ) || new Date(date) < new Date(Date.now())
             "
           >
-            {{
-              getTimeAndDate && getTimeAndDate.includes(timeSlot.start)
-                ? 'Nicht verfügbar'
-                : 'Verfügbar'
-            }}
+            <OkIcon
+              class="w-7 h-7"
+              v-if="
+                !(getTimeAndDate && getTimeAndDate.includes(timeSlot.start)) &&
+                new Date(date) >= new Date(Date.now())
+              "
+            />
+            <Disabled
+              class="w-7 h-7"
+              v-if="
+                (getTimeAndDate &&
+                  getTimeAndDate.includes(timeSlot.start) &&
+                  new Date() >= new Date(Date.now())) ||
+                new Date(date) < new Date(Date.now())
+              "
+            />
           </button>
         </div>
-        <hr class="w-[45vw] mx-auto" />
+        <hr class="w-[35vw] mx-auto" />
       </div>
     </div>
   </div>
@@ -127,6 +144,8 @@ import { useServiceStore } from '../stores/useServiceStore';
 import type { VDatePicker } from 'vuetify/components';
 import MaterialSymbolsAlarm from '../assets/Icons/Clock.vue';
 import { watch } from 'vue';
+import OkIcon from '../assets/Icons/OkIcon.vue';
+import Disabled from '../assets/Icons/Disabled.vue';
 
 type BlockedTimes = string[];
 const formDataServices = ref<FormDataServices>({
@@ -134,8 +153,7 @@ const formDataServices = ref<FormDataServices>({
   selectedTimeStart: '',
 });
 
-const date = ref(new Date());
-const startDate = ref(new Date());
+const date = ref<Date>(new Date());
 const checkTime = ref(true);
 const router = useRouter();
 const isSubmitting = ref(false);
@@ -150,11 +168,8 @@ const serviceStore = useServiceStore();
 const userLists = ref<CustomerListProps[]>([]);
 const selectAttribute = ref({});
 const position = ref(true);
+const startDate = ref(new Date(Date.now() + 24 * 60 * 60 * 1000));
 const attributes = ref([
-  {
-    key: 'today',
-    highlight: 'blue',
-  },
   {
     key: 'weekend',
     dot: 'red',
@@ -163,6 +178,11 @@ const attributes = ref([
         weekdays: [1],
       },
     },
+  },
+  {
+    key: 'today',
+    highlight: 'true',
+    dot: 'green',
   },
 ]);
 const rules = ref([
@@ -390,7 +410,7 @@ const handleSubmit = async (e: any, timeSlotId: number) => {
     const response = await axios.post(
       '/api/users/service',
       {
-        date: selectedDate.toISOString(),
+        date: selectedDate.toISOString().split('T')[0],
         email: userDetails.value.email,
         username: userDetails.value.username,
         phone: userDetails.value.phone,
