@@ -3,7 +3,7 @@ import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <template>
-  <div class="py-2 px-48 bg-[#f8f6f1] h-full">
+  <div class="py-2 px-48">
     <navigation-bar />
     <label for=""></label>
     <hr />

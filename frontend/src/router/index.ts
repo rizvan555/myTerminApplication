@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import Homeview from '../views/Homeview.vue';
+import Termin from '../views/Termin.vue';
 import SignUp from '../views/SignUp.vue';
 import SignIn from '../views/SignIn.vue';
 import SignOut from '../views/SignOut.vue';
@@ -14,6 +15,9 @@ import Service8 from '../views/service8.vue';
 import Service9 from '../views/service9.vue';
 import Admin from '../views/dashboard/Admin.vue';
 import Profile from '../views/Profile.vue';
+import Team from '../views/Team.vue';
+import Kontakt from '../views/Contact.vue';
+import Galerie from '../views/Gallery.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,7 +25,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: Homeview,
+    },
+    {
+      path: '/termin',
+      name: 'termin',
+      component: Termin,
     },
     {
       path: '/signUp',
@@ -93,6 +102,21 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: Profile,
+    },
+    {
+      path: '/team',
+      name: 'team',
+      component: Team,
+    },
+    {
+      path: '/kontakt',
+      name: 'kontakt',
+      component: Kontakt,
+    },
+    {
+      path: '/galerie',
+      name: 'galerie',
+      component: Galerie,
     },
   ],
 });

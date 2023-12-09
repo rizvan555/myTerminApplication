@@ -3,7 +3,7 @@
     <div v-for="service in services" :key="service.id">
       <router-link :to="service.path">
         <div
-          class="flex justify-center items-center border px-2 py-3 mb-2 rounded bg-white service-card"
+          class="flex justify-center items-center border px-2 py-3 mb-2 rounded bg-[#f8f6f1] service-card"
         >
           <div class="w-[40vw] flex justify-center items-center">
             <img
@@ -14,7 +14,7 @@
           </div>
           <div class="flex flex-col gap-1 ml-4">
             <h3 class="text-[17px] w-[36vw]">{{ service.name }}</h3>
-            <p class="text-[12px] text-red-500 font-semibold">
+            <p class="text-[14px] text-red-500 font-semibold">
               {{ service.price }}
             </p>
           </div>

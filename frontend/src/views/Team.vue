@@ -1,6 +1,5 @@
 <template>
-  <div>Home</div>
+  <div>Team</div>
 </template>
 
 <script setup lang="ts"></script>
-

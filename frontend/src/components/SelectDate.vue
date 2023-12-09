@@ -2,9 +2,12 @@
   <div class="py-2">
     <div
       v-if="!showSuccessMessage"
-      class="flex justify-center items-center container my-[4vh] gap-5"
+      class="flex justify-center items-center container my-[2vh] gap-5"
     >
-      <div class="w-[50vw] calendar rounded-lg">
+      <div
+        class="w-[50vw] calendar rounded-lg"
+        v-if="userDetails.username !== ''"
+      >
         <VDatePicker
           v-model="date"
           mode="date"
@@ -24,7 +27,7 @@
       class="flex flex-col justify-center items-center"
       v-if="userDetails.username === ''"
     >
-      <img :src="AttentionIcon" alt="AttentionIcon" class="w-16" />
+      <img :src="AttentionIcon" alt="AttentionIcon" class="w-20 mb-4" />
       <h1 class="text-red-500 text-center text-xl mb-4 font-bold">
         Sie müssen sich anmelden
       </h1>
@@ -36,38 +39,47 @@
     >
       <div class="flex flex-col justify-center items-start py-4">
         <div class="mb-10 font-bold text-xl flex items-center gap-3">
-          <OkIcon class="w-14 h-14 text-green-500" />
+          <OkIcon class="w-10 h-10 text-green-500" />
           <h1>Ihr Termin wurde bestätigt</h1>
         </div>
 
         <div class="">
-          <div v-if="date" class="flex gap-2 text-base">
-            <p class="font-bold w-[5vw]">Datum:</p>
+          <div v-if="date" class="flex items-center gap-3 text-base">
+            <div class="flex items-center gap-1">
+              <calendar class="w-4 h-4"></calendar>
+              <p class="font-semibold w-[5vw]">Datum:</p>
+            </div>
             <p>{{ customDateFormatter(date.toString()) }}</p>
           </div>
           <div
             v-if="date"
-            class="text-base flex gap-2"
+            class="text-base flex gap-3"
             :class="{
               'text-red-600': !checkTime,
             }"
           >
-            <p class="font-bold w-[5vw]">Zeit:</p>
+            <div class="flex items-center gap-1">
+              <clock1 class="w-4 h-4"></clock1>
+              <p class="font-semibold w-[5vw]">Zeit:</p>
+            </div>
             <p>
               {{
                 userDetails.username ? formDataServices.selectedTimeStart : ''
               }}
             </p>
           </div>
-          <div class="flex justify-center items-center gap-2">
-            <p class="font-bold w-[5vw]">Service:</p>
+          <div class="flex justify-center items-center gap-3">
+            <div class="flex items-center gap-1">
+              <service class="w-4 h-4"></service>
+              <p class="font-semibold w-[5vw]">Service:</p>
+            </div>
             <p>{{ userDetails.username ? selectedServiceName : '' }}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="border rounded-lg w-[40vw] mx-auto bg-[#f8f6f1]">
+    <div class=" rounded-lg w-[40vw] mx-auto bg-[#f8f6f1]">
       <div
         v-if="
           date && selectAttribute && !showSuccessMessage && userDetails.username
@@ -148,6 +160,9 @@ import MaterialSymbolsAlarm from '../assets/Icons/Clock.vue';
 import { watch } from 'vue';
 import OkIcon from '../assets/Icons/OkIcon.vue';
 import Disabled from '../assets/Icons/Disabled.vue';
+import calendar from '../assets/Icons/Calendar.vue';
+import clock1 from '../assets/Icons/Clock1.vue';
+import service from '../assets/Icons/Service.vue';
 
 type BlockedTimes = string[];
 const formDataServices = ref<FormDataServices>({
