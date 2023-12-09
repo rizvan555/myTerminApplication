@@ -17,7 +17,7 @@
       class="flex flex-col justify-center items-center mt-2 mx-auto py-2 gap-2 w-[18vw]"
       v-if="!showSuccessMessage && userDetails.username"
     >
-      <h6 class="font-bold">Wählen Sie Ihren Termin</h6>
+      <h6 class="text-[#3f50b5] font-bold">Wählen Sie Ihren Termin</h6>
       <img :src="DownArrow" alt="Down Arrow" class="" />
     </div>
 

@@ -25,7 +25,7 @@
       v-if="userDetails.username === ''"
     >
       <img :src="AttentionIcon" alt="AttentionIcon" class="w-16" />
-      <h1 class="text-red-500 text-center text-xl mb-4">
+      <h1 class="text-red-500 text-center text-xl mb-4 font-bold">
         Sie müssen sich anmelden
       </h1>
     </div>
@@ -34,8 +34,9 @@
       class="flex justify-center items-center w-[50vw] mx-auto my-[10vh]"
       v-if="showSuccessMessage"
     >
-      <div class="flex flex-col justify-center items-center py-4">
-        <div class="mb-10 font-bold text-xl">
+      <div class="flex flex-col justify-center items-start py-4">
+        <div class="mb-10 font-bold text-xl flex items-center gap-3">
+          <OkIcon class="w-14 h-14 text-green-500" />
           <h1>Ihr Termin wurde bestätigt</h1>
         </div>
 
@@ -111,7 +112,7 @@
             "
           >
             <OkIcon
-              class="w-7 h-7"
+              class="w-7 h-7 okicon"
               v-if="
                 !(getTimeAndDate && getTimeAndDate.includes(timeSlot.start)) &&
                 new Date(date) >= new Date(Date.now())
