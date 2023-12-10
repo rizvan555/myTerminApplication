@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[60vw] mx-auto my-4 pt-1 pb-4 bg-white">
+  <div class="w-[60vw] mx-auto mb-2 pt-1 pb-4 bg-white calendar">
     <div class="" v-if="!showSuccessMessage && userDetails.username">
       <!-- <div class="flex justify-center items-center gap-2 mb-[-25px] mx-auto">
         <p class="text-l">Hallo</p>
