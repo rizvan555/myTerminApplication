@@ -107,3 +107,12 @@
   scale: 0.8;
   transition: all 0.3s ease-in-out;
 }
+
+.logout-button:hover {
+  background-color: #ccc;
+}
+.logout-button:active {
+  scale: 0.95;
+  transition: all 0.3s ease-in-out;
+  background-color: #ccc;
+}

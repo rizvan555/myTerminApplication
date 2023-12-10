@@ -3,11 +3,10 @@ import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <template>
-  <div class="py-2 px-48">
+  <div class="">
     <navigation-bar />
     <label for=""></label>
-    <hr />
 
-    <router-view />
+    <router-view class="px-4"/>
   </div>
 </template>

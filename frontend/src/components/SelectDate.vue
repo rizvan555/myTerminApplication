@@ -79,7 +79,7 @@
       </div>
     </div>
 
-    <div class=" rounded-lg w-[40vw] mx-auto bg-[#f8f6f1]">
+    <div class="rounded-lg w-[40vw] mx-auto bg-[#f8f6f1]">
       <div
         v-if="
           date && selectAttribute && !showSuccessMessage && userDetails.username
