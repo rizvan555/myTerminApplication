@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-full w-[45vw] py-10 px-10 rounded mx-auto items-center justify-center signout-container"
+    class="flex h-full w-[45vw] py-10 px-10 rounded mx-auto items-center justify-center reg-container"
   >
     <div class="text-center">
       <h3 class="text-xl font-bold mb-6">

@@ -45,7 +45,7 @@
               v-bind="props"
             >
               <AvatarLetter v-if="users && users.length > 0" />
-              <Dots v-else />
+              <Dots v-else class="text-black" />
             </button>
           </template>
           <v-list>
@@ -55,8 +55,8 @@
               :value="myMenu.id"
             >
               <v-list-item-title class="flex justify-center items-center gap-3">
-                <component :is="myMenu.icon" class="w-[20px]" />
-                <a :href="myMenu.path" class="w-[70px]">
+                <component :is="myMenu.icon" class="w-[20px] h-[25px]" />
+                <a :href="myMenu.path" class="w-[70px] font-semibold">
                   {{ myMenu.name }}</a
                 ></v-list-item-title
               >

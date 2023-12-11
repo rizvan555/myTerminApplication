@@ -1,8 +1,8 @@
 <template>
-  <div class="auth-page h-[100vh]">
-    <div class="container page">
-      <div class="row">
-        <div class="flex flex-col gap-2 col-md-6 offset-md-3 col-xs-12">
+  <div class="auth-page reg-container pb-10 w-[35vw] my-[10vh] rounded mx-auto">
+    <div class="">
+      <div class="">
+        <div class="flex flex-col gap-2 px-6 py-2">
           <h1 class="text-xs-center text-center text-2xl my-6 font-bold">
             LOGIN
           </h1>
