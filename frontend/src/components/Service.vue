@@ -3,13 +3,13 @@
     <div v-for="service in services" :key="service.id">
       <router-link :to="service.path">
         <div
-          class="flex justify-center items-center border px-2 py-3 mb-2 rounded bg-[#f8f6f1] service-card"
+          class="flex justify-center items-center border px-2 py-3 mb-2 rounded service-card"
         >
           <div class="w-[40vw] flex justify-center items-center">
             <img
               :src="service.image"
               alt="haarImage"
-              class="w-[60px] h-[60px] rounded border-slate-500 ]"
+              class="w-[60px] h-[60px] rounded border-slate-500"
             />
           </div>
           <div class="flex flex-col gap-1 ml-4">

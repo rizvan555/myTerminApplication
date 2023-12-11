@@ -1,36 +1,40 @@
 <template>
-  <div class="flex items-center justify-between gap-2 px-10 py-3 bg-slate-100">
+  <div class="flex items-center justify-between gap-2 px-10 py-3 bg-slate-800">
     <div class="flex items-center gap-[35vw]">
       <div class="flex items-center">
         <div class="flex flex-col items-center justify-center relative">
-          <img :src="Razor" alt="razor" class="w-5 z-0" />
+          <!-- <img :src="Barber" alt="razor" class="w-20 z-0" /> -->
           <div class="flex items-center z-20 font-serif">
-            <h1 class="text-l font-semibold">BarBer</h1>
+            <h1 class="text-xl font-semibold text-white">BarBer</h1>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center items-center gap-[3vw]">
-        <button class="font-bold"><a href="/">Home</a></button>
+        <button class="font-bold nav-buttons"><a href="/">Home</a></button>
 
         <div class="flex" v-for="nav in allNavs.navs">
           <a
             href="termin"
-            class="px-2 py-1 font-bold active:scale-95 transition-all"
+            class="px-2 py-1 font-bold active:scale-95 transition-all nav-buttons"
           >
             Termin
           </a>
         </div>
 
-        <button class="font-bold"><a href="galerie">Galerie</a></button>
-        <button class="font-bold"><a href="team">Team</a></button>
-        <button class="font-bold"><a href="kontakt">Kontakt</a></button>
+        <button class="font-bold nav-buttons"><a href="team">Team</a></button>
+        <button class="font-bold nav-buttons">
+          <a href="kontakt">Kontakt</a>
+        </button>
+        <button class="font-bold nav-buttons">
+          <a href="galerie">Galerie</a>
+        </button>
       </div>
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 text-white">
       <div class="flex items-center gap-1">
-        <h1>Hi,</h1>
+        <h1 v-if="users && users.length > 0">Hi,</h1>
         <Username />
       </div>
       <div class="d-flex justify-space-around">
@@ -73,7 +77,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import type { User } from '@/types';
 import { computed } from 'vue';
-import Razor from '../assets/logo/Razor.png';
+import Barber from '../assets/logo/Barber.png';
 import Username from './Username.vue';
 import AvatarLetter from './AvatarLetter.vue';
 import Dots from '../assets/Icons/Dots.vue';

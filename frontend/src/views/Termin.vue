@@ -26,7 +26,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="flex flex-col justify-center items-center calendar mx-48">
+  <main
+    class="flex flex-col justify-center items-center calendar mx-48 bg-slate-50 rounded"
+  >
     <div class="flex flex-col">
       <h1 v-if="!users.length" class="flex justify-center text-2xl my-4">
         Unsere Angebote

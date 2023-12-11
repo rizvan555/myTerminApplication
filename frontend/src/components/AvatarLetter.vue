@@ -2,7 +2,7 @@
   <div
     v-for="user in users"
     :key="user.email"
-    class="text-center my-2 text-l font-semibold font-serif"
+    class="text-center my-2 text-l text-black font-semibold font-serif"
   >
     {{ user.username.split('')[0] }}
   </div>

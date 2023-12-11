@@ -1,5 +1,7 @@
 <template>
-  <div class="flex h-screen items-center justify-center">
+  <div
+    class="flex h-full w-[45vw] py-10 px-10 rounded mx-auto items-center justify-center signout-container"
+  >
     <div class="text-center">
       <h3 class="text-xl font-bold mb-6">
         Sind Sie sicher, dass Sie sich abmelden möchten?
@@ -7,13 +9,13 @@
       <div class="flex justify-center items-center gap-4">
         <button
           @click="signOut"
-          class="bg-blue-500 text-white px-4 py-2 rounded"
+          class="bg-green-500 text-white px-4 py-2 rounded"
         >
           Ja, abmelden
         </button>
         <button
           @click="toHomePage"
-          class="bg-blue-500 text-white px-4 py-2 rounded"
+          class="bg-red-500 text-white px-4 py-2 rounded"
         >
           Nein, abbrechen
         </button>

@@ -48,11 +48,9 @@
   width: 8em;
   z-index: 2;
 }
-
 .bn39:hover {
   color: #fff;
 }
-
 .bn39 .bn39span {
   align-items: center;
   background: #0e0e10;
@@ -63,7 +61,6 @@
   transition: background 0.5s ease;
   width: 100%;
 }
-
 .bn39:hover .bn39span {
   background: transparent;
 }
@@ -109,7 +106,6 @@
 }
 
 .logout-button:hover {
-
   background-color: #ccc;
 }
 .logout-button:active {
@@ -117,4 +113,16 @@
   transition: all 0.3s ease-in-out;
   background-color: #ccc;
 }
-
+.signout-container {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.nav-buttons {
+  color: #fff;
+}
+.nav-buttons:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: #fff;
+  scale: 1.1;
+  transition: all 0.3s ease-in-out;
+}
