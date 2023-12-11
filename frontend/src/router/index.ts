@@ -15,6 +15,7 @@ import Service8 from '../views/service8.vue';
 import Service9 from '../views/service9.vue';
 import Admin from '../views/dashboard/Admin.vue';
 import Profile from '../views/Profile.vue';
+import About from '../views/About.vue';
 import Team from '../views/Team.vue';
 import Kontakt from '../views/Contact.vue';
 import Galerie from '../views/Gallery.vue';
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Homeview,
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About,
     },
     {
       path: '/termin',

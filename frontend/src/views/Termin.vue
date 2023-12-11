@@ -26,11 +26,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main
-    class="flex flex-col justify-center items-center calendar mx-48 bg-slate-50 rounded"
-  >
+  <main class="flex flex-col justify-center items-center rounded">
     <div class="flex flex-col">
-      <h1 v-if="!users.length" class="flex justify-center text-2xl my-4">
+      <h1
+        v-if="!users.length"
+        class="flex justify-center text-3xl my-4 text-indigo-950 font-bold"
+      >
         Unsere Angebote
       </h1>
     </div>
@@ -50,4 +51,5 @@ onMounted(async () => {
       </div>
     </div>
   </main>
+  <hr class="my-6" />
 </template>

@@ -1,5 +1,7 @@
 <template>
-  <div class="auth-page reg-container pb-10 w-[35vw] my-[10vh] rounded mx-auto">
+  <div
+    class="auth-page reg-container pb-10 w-[35vw] my-[10vh] rounded mx-auto bg-slate-50"
+  >
     <div class="">
       <div class="">
         <div class="flex flex-col gap-2 px-6 py-2">
@@ -40,9 +42,13 @@
               </div>
             </fieldset>
 
-            <v-btn :disabled="isSubmitting" color="primary" type="submit"
-              >LOGIN</v-btn
+            <button
+              :disabled="isSubmitting"
+              class="bg-indigo-950 text-white rounded py-3 px-2 font-semibold hover:bg-slate-600 active:scale-95 transition-all"
+              type="submit"
             >
+              LOGIN
+            </button>
           </form>
         </div>
       </div>

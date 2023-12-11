@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between gap-2 px-10 py-3 bg-slate-800">
+  <div class="flex items-center justify-between gap-2 px-10 py-3 bg-indigo-950">
     <div class="flex items-center gap-[35vw]">
       <div class="flex items-center">
         <div class="flex flex-col items-center justify-center relative">
@@ -12,6 +12,9 @@
 
       <div class="flex justify-center items-center gap-[3vw]">
         <button class="font-bold nav-buttons"><a href="/">Home</a></button>
+        <button class="font-bold nav-buttons">
+          <a href="/about">About</a>
+        </button>
 
         <div class="flex" v-for="nav in allNavs.navs">
           <a
@@ -24,10 +27,10 @@
 
         <button class="font-bold nav-buttons"><a href="team">Team</a></button>
         <button class="font-bold nav-buttons">
-          <a href="kontakt">Kontakt</a>
+          <a href="galerie">Galerie</a>
         </button>
         <button class="font-bold nav-buttons">
-          <a href="galerie">Galerie</a>
+          <a href="kontakt">Kontakt</a>
         </button>
       </div>
     </div>
