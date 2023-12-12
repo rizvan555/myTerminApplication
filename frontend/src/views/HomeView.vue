@@ -5,19 +5,19 @@
         class="flex flex-col items-start px-10 py-15 w-[45vw] float-right gap-2"
       >
         <h1 class="text-xl notHomeBg font-semibold text-orange-100">
-          Welcome to Barberamania
+          Wilkommen beim Barberamania
         </h1>
         <h2 class="text-5xl text-white font-bold notHomeBg">
-          We will make your style of your dreams
+          Wir machen Ihren Stil zu Ihren Träumen
         </h2>
         <h5 class="text-orange-100 notHomeBg w-[35vw] mt-10">
-          A small rivere named Duden flows by their place and supplies it with
-          the necessary regelialia. It is a paradisematic country, in which
-          roasted parts of sentences fly into your mouth .
+          Ein kleiner Fluss namens Duden fließt an ihrem Ort vorbei und versorgt
+          ihn mit Wasser die notwendigen Regelialien. Es ist ein paradiesisches
+          Land, in dem Geröstete Satzteile fliegen einem in den Mund.
         </h5>
 
         <button class="z-10 my-5 btn btn-outline-light">
-          <a href="/about"> Learn more about us </a>
+          <a href="/about"> Mehr über uns </a>
         </button>
       </aside>
     </div>
@@ -40,9 +40,8 @@
       <hr class="my-6" />
     </div>
 
-    <div>
+    <div class="">
       <Kontakt />
-      <hr class="my-6" />
     </div>
   </div>
 </template>

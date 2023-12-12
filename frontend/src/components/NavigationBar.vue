@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-between gap-4 px-10 py-3 bg-indigo-950">
-    <div class="flex items-center gap-[35vw]">
+    <div class="flex items-center gap-[30vw]">
       <div class="flex items-center">
         <div class="flex flex-col items-center justify-center relative">
           <!-- <img :src="Barber" alt="razor" class="w-20 z-0" /> -->
@@ -13,7 +13,7 @@
       <div class="flex justify-center items-center gap-[3vw]">
         <button class="font-bold nav-buttons"><a href="/">Home</a></button>
         <button class="font-bold nav-buttons">
-          <a href="/about">About</a>
+          <a href="/about">Über uns</a>
         </button>
 
         <div class="flex" v-for="nav in allNavs.navs">

@@ -44,3 +44,9 @@ export interface CustomerListProps {
   selectedService: string;
   selectedTimeStart: string;
 }
+
+export type UpdatedInfo = {
+  name: boolean;
+  phone: boolean;
+  email: boolean;
+};

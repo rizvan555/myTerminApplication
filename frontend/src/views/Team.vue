@@ -1,5 +1,7 @@
 <template>
-  <div class="py-20">
+  <div class="pb-2">
+    <h1 class="mx-auto text-center text-3xl my-4 font-bold">Unsere Team</h1>
+
     <ul class="grid grid-cols-3 gap-4 px-10 py-2 text-center">
       <li class="border rounded pb-4 bg-white">
         <img

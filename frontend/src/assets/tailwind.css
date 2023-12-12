@@ -161,3 +161,12 @@
   width: 100px;
   height: 32px;
 }
+.contact,
+.map {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.changeButton:active {
+  scale: 0.95;
+  transition: all 0.3s ease-in-out;
+  background-color: #ccc;
+}

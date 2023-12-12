@@ -28,7 +28,7 @@
     </ul>
 
     <ul class="flex flex-col gap-2">
-      <li class="text-2xl font-semibold my-4"><a href=""></a>Entdecke</li>
+      <li class="text-2xl font-semibold my-4 text-slate-300">Entdecke</li>
       <li><a href="#">Barmeramania Guide</a></li>
       <li><a href="#">User Blog</a></li>
       <li><a href="#">Barberamania Geschenkgutschein</a></li>
@@ -36,8 +36,8 @@
     </ul>
 
     <ul class="flex flex-col gap-2">
-      <li class="text-2xl font-semibold my-4">
-        <a href="#">Geschäftspartner</a>
+      <li class="text-2xl font-semibold my-4 text-slate-300">
+        Geschäftspartner
       </li>
       <li><a href="#">Partner werden</a></li>
       <li><a href="#">Connect Help Center</a></li>
@@ -45,7 +45,7 @@
     </ul>
 
     <ul class="flex flex-col gap-2">
-      <li class="text-2xl font-semibold my-4">Unternehmen</li>
+      <li class="text-2xl font-semibold my-4 text-slate-300">Unternehmen</li>
       <li><a href="#">Über uns</a></li>
       <li><a href="#">Jobs</a></li>
       <li><a href="#">Impressum</a></li>
