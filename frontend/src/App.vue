@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavigationBar from './components/NavigationBar.vue';
+import FooterBar from './components/FooterBar.vue';
 </script>
 
 <template>
@@ -7,6 +8,7 @@ import NavigationBar from './components/NavigationBar.vue';
     <navigation-bar />
     <label for=""></label>
 
-    <router-view class=""/>
+    <router-view class="" />
+    <footer-bar />
   </div>
 </template>

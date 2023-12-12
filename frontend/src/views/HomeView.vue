@@ -37,10 +37,12 @@
 
     <div>
       <Gallery />
+      <hr class="my-6" />
     </div>
 
     <div>
       <Kontakt />
+      <hr class="my-6" />
     </div>
   </div>
 </template>

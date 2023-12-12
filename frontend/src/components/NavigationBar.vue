@@ -80,7 +80,6 @@ import axios from 'axios';
 import { ref } from 'vue';
 import type { User } from '@/types';
 import { computed } from 'vue';
-import Barber from '../assets/logo/Barber.png';
 import Username from './Username.vue';
 import AvatarLetter from './AvatarLetter.vue';
 import Dots from '../assets/Icons/Dots.vue';
