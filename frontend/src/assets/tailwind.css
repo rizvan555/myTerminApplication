@@ -4,10 +4,16 @@
 
 @tailwind utilities;
 
+.service-card {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
 .service-card:hover {
-  transform: scale(1.01);
+  transform: scale(1.04);
   transition: all 0.3s ease-in-out;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 1px indigo solid;
 }
 
 #datepicker {

@@ -1,12 +1,12 @@
 <template>
-   <div class="w-[60vw] mx-auto mb-2 pt-1 pb-4 bg-white calendar">
+  <div class="w-[60vw] mx-auto mb-2 pt-1 pb-4 bg-white calendar">
     <div class="" v-if="!showSuccessMessage && userDetails.username">
       <!-- <div class="flex justify-center items-center gap-2 mb-[-25px] mx-auto">
         <p class="text-l">Hallo</p>
         <user-name />
       </div> -->
       <div class="flex justify-center items-center gap-2">
-        <p class="text-l">Ihre Wahl ist</p>
+        <p class="text-l text-indigo-950">Ihre Wahl ist</p>
         <NameService :serviceId="5" />
       </div>
     </div>
@@ -15,7 +15,7 @@
       class="flex flex-col justify-center items-center mt-2 gap-3"
       v-if="!showSuccessMessage && userDetails.username"
     >
-      <h6 class="text-[#3f50b5] font-bold">Wählen Sie Ihren Termin</h6>
+      <h6 class="text-indigo-950 font-bold">Wählen Sie Ihren Termin</h6>
       <img :src="DownArrow" alt="Down Arrow" class="" />
     </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[50vw]">
+  <div class="w-[50vw] flex flex-col gap-3">
     <div v-for="service in services" :key="service.id">
       <router-link :to="service.path">
         <div

@@ -28,27 +28,22 @@ onMounted(async () => {
 <template>
   <main class="flex flex-col justify-center items-center rounded">
     <div class="flex flex-col">
-      <h1
-        v-if="!users.length"
-        class="flex justify-center text-3xl my-4 text-indigo-950 font-bold"
-      >
+      <h1 class="flex justify-center text-3xl my-7 0 font-bold">
         Unsere Angebote
       </h1>
     </div>
-    <div
+    <!-- <div
       v-if="users.length"
-      class="flex justify-center items-center gap-2 my-4"
+      class="flex justify-center items-center gap-2 mb-6 text-xl"
     >
-      <p class="flex justify-center">Hallo,</p>
+      <p class="flex justify-center text-xl">Hallo,</p>
       <p v-for="user in users" :key="user.email" class="font-bold">
         {{ user.username }}.
       </p>
       <p>Was möchten Sie tun?</p>
-    </div>
+    </div> -->
     <div class="">
-      <div class="grid gap-2">
-        <Service />
-      </div>
+      <Service />
     </div>
   </main>
   <hr class="my-6" />

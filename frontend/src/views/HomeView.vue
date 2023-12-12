@@ -17,7 +17,7 @@
         </h5>
 
         <button class="z-10 my-5 btn btn-outline-light">
-          <a href="#"> Learn more about us </a>
+          <a href="/about"> Learn more about us </a>
         </button>
       </aside>
     </div>
@@ -32,14 +32,15 @@
 
     <div>
       <Team />
-    </div>
-
-    <div>
-      <Kontakt />
+      <hr class="my-6" />
     </div>
 
     <div>
       <Gallery />
+    </div>
+
+    <div>
+      <Kontakt />
     </div>
   </div>
 </template>

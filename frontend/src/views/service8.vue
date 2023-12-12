@@ -6,7 +6,7 @@
         <user-name />
       </div> -->
       <div class="flex justify-center items-center gap-2">
-        <p class="text-l">Ihre Wahl ist</p>
+        <p class="text-l text-indigo-950">Ihre Wahl ist</p>
         <NameService :serviceId="8" />
       </div>
     </div>
@@ -15,7 +15,7 @@
       class="flex flex-col justify-center items-center mt-2 gap-3"
       v-if="!showSuccessMessage && userDetails.username"
     >
-      <h6 class="text-[#3f50b5] font-bold">Wählen Sie Ihren Termin</h6>
+      <h6 class="text-indigo-950 font-bold">Wählen Sie Ihren Termin</h6>
       <img :src="DownArrow" alt="Down Arrow" class="" />
     </div>
 
