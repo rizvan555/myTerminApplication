@@ -28,7 +28,7 @@ onMounted(async () => {
 <template>
   <main class="flex flex-col justify-center items-center rounded">
     <div class="flex flex-col">
-      <h1 class="flex justify-center text-3xl my-7 0 font-bold">
+      <h1 class="flex justify-center text-3xl mt-7 mb-10 0 font-bold">
         Unsere Angebote
       </h1>
     </div>

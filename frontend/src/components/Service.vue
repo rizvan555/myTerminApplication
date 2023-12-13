@@ -1,11 +1,11 @@
 <template>
-  <div class="w-[50vw] flex flex-col gap-3">
+  <div class="w-[96vw] grid grid-cols-2 gap-3">
     <div v-for="service in services" :key="service.id">
       <router-link :to="service.path">
         <div
           class="flex justify-center items-center border border-indigo-950 px-2 py-3 mb-2 rounded service-card"
         >
-          <div class="w-[40vw] flex justify-center items-center">
+          <div class="w-[48vw] flex justify-center items-center">
             <img
               :src="service.image"
               alt="haarImage"
