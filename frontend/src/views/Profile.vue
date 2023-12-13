@@ -173,7 +173,6 @@ const acceptInfo = async (e: any) => {
       },
       withCredentials: true,
     };
-    console.log(users.value[0]._id);
     const userId = users.value[0]._id;
 
     if (!userId) {
@@ -187,28 +186,19 @@ const acceptInfo = async (e: any) => {
 
     const nameInput = document.querySelector('input[name="name"]');
     if (nameInput) {
-      const nameInput = document.querySelector(
-        'input[name="name"]'
-      ) as HTMLInputElement;
-      updatedUsername = nameInput.value;
+      updatedUsername = (nameInput as HTMLInputElement).value;
       console.log(updatedUsername);
     }
 
     const phoneInput = document.querySelector('input[name="phone"]');
     if (phoneInput) {
-      const phoneInput = document.querySelector(
-        'input[name="phone"]'
-      ) as HTMLInputElement;
-      updatePhone = phoneInput.value;
+      updatePhone = (phoneInput as HTMLInputElement).value;
       console.log(updatePhone);
     }
 
     const emailInput = document.querySelector('input[name="email"]');
     if (emailInput) {
-      const emailInput = document.querySelector(
-        'input[name="email"]'
-      ) as HTMLInputElement;
-      updatedEmail = emailInput.value;
+      updatedEmail = (emailInput as HTMLInputElement).value;
       console.log(updatedEmail);
     }
 

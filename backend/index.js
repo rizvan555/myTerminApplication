@@ -147,20 +147,37 @@ app.put('/users/:id', async (req, res) => {
   console.log('Request Body:', req.body);
   try {
     const userId = new ObjectId(req.params.id);
-    const { username } = req.body;
+    const { username, phone, email } = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { username },
-      { new: true }
-    );
+    if (!username && !phone && !email) {
+      return res.status(400).json({
+        error:
+          'Für die Aktualisierung muss mindestens ein Feld bereitgestellt werden',
+      });
+    }
+
+    const updateObject = {};
+    if (username) {
+      updateObject.username = username;
+    }
+    if (phone) {
+      updateObject.phone = phone;
+    }
+    if (email) {
+      updateObject.email = email;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateObject, {
+      new: true,
+    });
 
     if (!updatedUser) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'Benutzer nicht gefunden' });
     }
+
     res.status(200).json({ username: updatedUser.username });
   } catch (error) {
-    console.error('Error updating user data:', error);
+    console.error('Fehler beim Aktualisieren der Benutzerdaten:', error);
     res
       .status(500)
       .json({ error: 'Internal Server Error', details: error.message });
