@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center items-center gap-[3vw]">
+      <div class="flex justify-center items-center gap-[34px]">
         <button class="font-bold nav-buttons"><a href="/">Home</a></button>
         <button class="font-bold nav-buttons">
           <a href="/about">Über uns</a>
