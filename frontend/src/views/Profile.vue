@@ -108,7 +108,7 @@
         </div>
       </li>
       <button
-        type="button"
+        type="submit"
         v-if="updatedInfo.phone || updatedInfo.name || updatedInfo.email"
         class="border px-4 mt-6 rounded bg-green-500 hover:bg-green-600 active:scale-95 transition-all text-white form-bold"
         @click="acceptInfo"
@@ -129,6 +129,7 @@ import PenIcon from '../assets/Icons/PenIcon.vue';
 
 const users = ref<User[]>([]);
 const user = ref<User>({
+  _id: '',
   username: '',
   email: '',
   phone: '',
@@ -162,36 +163,66 @@ const toggleUpdatedInfo = (propertyName: keyof UpdatedInfo) => {
   updatedInfo.value[propertyName] = !updatedInfo.value[propertyName];
 };
 
-const acceptInfo = (e: Event) => {
+const acceptInfo = async (e: any) => {
   e.preventDefault();
 
-  const nameInput = document.querySelector('input[name="name"]');
-  if (nameInput) {
-    const nameInput = document.querySelector(
-      'input[name="name"]'
-    ) as HTMLInputElement;
-    const updatedUsername = nameInput.value;
-    console.log(updatedUsername);
-  }
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    };
 
-  const phoneInput = document.querySelector('input[name="phone"]');
-  if (phoneInput) {
-    const phoneInput = document.querySelector(
-      'input[name="phone"]'
-    ) as HTMLInputElement;
-    const updatePhone = phoneInput.value;
-    console.log(updatePhone);
-  }
+    const userId = user.value._id;
 
-  const emailInput = document.querySelector('input[name="email"]');
-  if (emailInput) {
-    const emailInput = document.querySelector(
-      'input[name="email"]'
-    ) as HTMLInputElement;
-    const updatedEmail = emailInput.value;
-    console.log(updatedEmail);
+    let updatedUsername = '';
+    let updatePhone = '';
+    let updatedEmail = '';
+
+    const nameInput = document.querySelector('input[name="name"]');
+    if (nameInput) {
+      const nameInput = document.querySelector(
+        'input[name="name"]'
+      ) as HTMLInputElement;
+      updatedUsername = nameInput.value;
+      console.log(updatedUsername);
+    }
+
+    const phoneInput = document.querySelector('input[name="phone"]');
+    if (phoneInput) {
+      const phoneInput = document.querySelector(
+        'input[name="phone"]'
+      ) as HTMLInputElement;
+      updatePhone = phoneInput.value;
+      console.log(updatePhone);
+    }
+
+    const emailInput = document.querySelector('input[name="email"]');
+    if (emailInput) {
+      const emailInput = document.querySelector(
+        'input[name="email"]'
+      ) as HTMLInputElement;
+      updatedEmail = emailInput.value;
+      console.log(updatedEmail);
+    }
+
+    const response = await axios.put(
+      `/api/users/${userId}`,
+      {
+        username: updatedUsername,
+        phone: updatePhone,
+        email: updatedEmail,
+      },
+      config
+    );
+
+    console.log('Update response:', response.data);
+  } catch (error) {
+    console.error('Error updating user data:', error);
   }
 };
+
 const reloadButton = () => {
   updatedInfo.value.name = false;
   updatedInfo.value.phone = false;

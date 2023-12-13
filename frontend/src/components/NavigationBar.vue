@@ -4,7 +4,7 @@
       <div class="flex items-center">
         <div class="flex flex-col items-center justify-center relative">
           <!-- <img :src="Barber" alt="razor" class="w-20 z-0" /> -->
-          <div class="flex items-center z-20 font-serif">
+          <div class="flex items-center z-20 font-serif pl-8">
             <h1 class="text-xl font-semibold text-white">BarBer</h1>
           </div>
         </div>

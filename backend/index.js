@@ -6,6 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import User from './models/user.js';
 import UserService from './models/userService.js';
+import { ObjectId } from 'mongodb';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -92,7 +93,7 @@ app.post('/users/login', async (req, res) => {
 });
 
 // Logout Route
-app.post('users/logout', async (req, res) => {
+app.post('/users/logout', async (req, res) => {
   console.log('Signing out on the server...');
   res.status(200).json({ message: 'User logged out successfully' });
 });
@@ -138,6 +139,30 @@ app.post('/users/service', async (req, res) => {
   } catch (error) {
     console.error('Error recording data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Update User Data
+app.put('/users/:id', async (req, res) => {
+  try {
+    const userId = new ObjectId(req.params.id);
+    const { username } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { username },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ username: updatedUser.username });
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error', details: error.message });
   }
 });
 
