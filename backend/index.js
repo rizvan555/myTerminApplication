@@ -144,6 +144,7 @@ app.post('/users/service', async (req, res) => {
 
 // Update User Data
 app.put('/users/:id', async (req, res) => {
+  console.log('Request Body:', req.body);
   try {
     const userId = new ObjectId(req.params.id);
     const { username } = req.body;

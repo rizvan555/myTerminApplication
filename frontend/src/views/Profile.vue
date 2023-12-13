@@ -173,8 +173,13 @@ const acceptInfo = async (e: any) => {
       },
       withCredentials: true,
     };
+    console.log(users.value[0]._id);
+    const userId = users.value[0]._id;
 
-    const userId = user.value._id;
+    if (!userId) {
+      console.error('User ID is undefined.');
+      return;
+    }
 
     let updatedUsername = '';
     let updatePhone = '';
