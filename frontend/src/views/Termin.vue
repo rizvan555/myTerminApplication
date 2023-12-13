@@ -32,16 +32,7 @@ onMounted(async () => {
         Unsere Angebote
       </h1>
     </div>
-    <!-- <div
-      v-if="users.length"
-      class="flex justify-center items-center gap-2 mb-6 text-xl"
-    >
-      <p class="flex justify-center text-xl">Hallo,</p>
-      <p v-for="user in users" :key="user.email" class="font-bold">
-        {{ user.username }}.
-      </p>
-      <p>Was möchten Sie tun?</p>
-    </div> -->
+
     <div class="">
       <Service />
     </div>
