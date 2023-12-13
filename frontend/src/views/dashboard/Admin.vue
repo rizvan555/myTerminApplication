@@ -1,5 +1,5 @@
 <template>
-  <div class="my-4">
+  <div class="mt-1 mb-6">
     <v-layout>
       <v-navigation-drawer
         v-model="drawer"
@@ -50,7 +50,7 @@
       <div class="">
         <div
           v-if="value === 'home'"
-          class="w-[95vw] ml-15 my-4 px-2 border"
+          class="w-[90vw] ml-24 px-2 border"
           :class="{ 'ml-[20vw]': !rail }"
         >
           <customer-list></customer-list>

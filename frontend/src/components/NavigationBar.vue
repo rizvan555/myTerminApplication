@@ -1,12 +1,12 @@
 <template>
   <div class="flex items-center justify-between gap-4 px-10 py-3 bg-indigo-950">
-    <div class="flex items-center gap-[30vw]">
+    <div class="flex items-center gap-[22vw]">
       <div class="flex items-center">
         <div class="flex flex-col items-center justify-center relative">
           <!-- <img :src="Barber" alt="razor" class="w-20 z-0" /> -->
           <div class="flex items-center z-20 font-serif pl-8">
             <h1 class="text-xl font-semibold text-white">
-              <a href="/">BarBer</a>
+              <a href="/">Barberamania</a>
             </h1>
           </div>
         </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="flex items-center gap-3 text-white">
+    <div class="flex items-center gap-3 text-white ml-4">
       <div class="flex items-center gap-1">
         <h1 v-if="users && users.length > 0">Hi,</h1>
         <Username />

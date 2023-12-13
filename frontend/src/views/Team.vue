@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-2">
+  <div class="pb-8">
     <h1 class="mx-auto text-center text-3xl my-4 font-bold">Unsere Team</h1>
 
     <ul class="grid grid-cols-3 gap-4 px-10 py-2 text-center">
@@ -28,7 +28,7 @@
           class="w-[20vw] px-4 py-4 mx-auto"
         />
         <h1 class="text-2xl font-semibold">Patrik Müller</h1>
-        <h5 class="text-l font-serifs">Barber</h5>
+        <h5 class="text-l font-serif">Barber</h5>
       </li>
     </ul>
   </div>
