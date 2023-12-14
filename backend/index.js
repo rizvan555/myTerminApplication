@@ -171,6 +171,18 @@ app.put('/users/:id', async (req, res) => {
       new: true,
     });
 
+    // Update corresponding userService
+    await UserService.updateMany(
+      { userId: userId },
+      {
+        $set: {
+          username: updateObject.username,
+          phone: updateObject.phone,
+          email: updateObject.email,
+        },
+      }
+    );
+
     if (!updatedUser) {
       return res.status(404).json({ error: 'Benutzer nicht gefunden' });
     }

@@ -2,7 +2,7 @@
   <div class="py-2">
     <div
       v-if="!showSuccessMessage"
-      class="flex justify-center items-center container my-[2vh] gap-5"
+      class="flex justify-center items-center container my-[1vh] gap-5"
     >
       <div
         class="w-[50vw] calendar rounded-lg"
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div
-      class="flex flex-col justify-center items-center"
+      class="flex flex-col justify-center items-center h-[50vh]"
       v-if="userDetails.username === ''"
     >
       <img :src="AttentionIcon" alt="AttentionIcon" class="w-20 mb-4" />

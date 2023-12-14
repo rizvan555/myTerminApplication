@@ -1,10 +1,6 @@
 <template>
   <div class="w-[60vw] mx-auto mb-2 pt-1 pb-4 bg-white calendar">
     <div class="" v-if="!showSuccessMessage && userDetails.username">
-      <!-- <div class="flex justify-center items-center gap-2 mb-[-25px] mx-auto">
-        <p class="text-l">Hallo</p>
-        <user-name />
-      </div> -->
       <div class="flex justify-center items-center gap-2">
         <p class="text-l text-indigo-950">Ihre Wahl ist</p>
         <NameService :serviceId="1" />

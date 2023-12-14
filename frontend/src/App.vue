@@ -8,7 +8,7 @@ import FooterBar from './components/FooterBar.vue';
     <navigation-bar />
     <label for=""></label>
 
-    <router-view class="" />
+    <router-view class="mb-6" />
     <footer-bar />
   </div>
 </template>
