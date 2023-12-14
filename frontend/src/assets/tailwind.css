@@ -170,3 +170,14 @@
   transition: all 0.3s ease-in-out;
   background-color: #ccc;
 }
+.input-border {
+  border-bottom: #ccc solid 1px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  outline: none;
+}
+.input-border:focus {
+  border: #ccc solid 1px;
+  outline: none;
+}

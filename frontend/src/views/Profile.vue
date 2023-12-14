@@ -14,11 +14,11 @@
         <p class="font-bold w-[8vw]">Name:</p>
         <div class="flex items-center justify-between w-[25vw] gap-10">
           <p v-if="!updatedInfo.name">{{ user.username }}</p>
-          <form v-if="updatedInfo.name" class="border rounded">
+          <form v-if="updatedInfo.name" class="input-border">
             <input
               type="text"
               placeholder="Name"
-              class="pl-3 w-[20vw]"
+              class="pl-3 w-[20vw] outline-none"
               name="name"
             />
           </form>
@@ -47,11 +47,11 @@
         <p class="font-bold w-[8vw]">Phone:</p>
         <div class="flex items-center justify-between w-[25vw] gap-10">
           <p v-if="!updatedInfo.phone">{{ user.phone }}</p>
-          <form v-if="updatedInfo.phone" class="border rounded">
+          <form v-if="updatedInfo.phone" class="input-border">
             <input
               type="number"
               placeholder="Phone"
-              class="pl-3 w-[20vw]"
+              class="pl-3 w-[20vw] outline-none"
               name="phone"
             />
           </form>
@@ -79,12 +79,12 @@
         <p class="font-bold w-[8vw]">Email:</p>
         <div class="flex items-center justify-between w-[25vw] gap-10">
           <p v-if="!updatedInfo.email">{{ user.email }}</p>
-          <form v-if="updatedInfo.email" class="border rounded">
+          <form v-if="updatedInfo.email" class="input-border">
             <input
               type="text"
               placeholder="E-Mail"
-              class="pl-3 w-[20vw]"
               name="email"
+              class="pl-3 w-[20vw] outline-none"
             />
           </form>
           <button
@@ -211,6 +211,7 @@ const acceptInfo = async (e: any) => {
       },
       config
     );
+    window.location.reload();
 
     console.log('Update response:', response.data);
   } catch (error) {
