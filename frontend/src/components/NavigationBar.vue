@@ -48,9 +48,16 @@
             <button
               class="border rounded-full w-[36px] h-[36px] flex justify-center items-center logout-button bg-[#e5e5e5]"
               v-bind="props"
+              v-if="users && users.length > 0"
             >
-              <AvatarLetter v-if="users && users.length > 0" />
-              <Dots v-else class="text-black" />
+              <AvatarLetter />
+            </button>
+            <button
+              v-if="!users || users.length === 0"
+              class="border border-white z-30 active:scale-95 transition-all"
+              v-bind="props"
+            >
+              Anmelden
             </button>
           </template>
           <v-list>

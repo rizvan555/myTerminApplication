@@ -5,12 +5,34 @@
     <h1 class="mb-20">FOTOS UNSERER VERANSTALTUNGEN</h1>
 
     <div class="grid grid-cols-3 gap-x-10 gap-y-5">
-      <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
-      <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
-      <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
-      <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
-      <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
-      <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      <div data-aos="zoom-out-right">
+        <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      </div>
+      <div
+        data-aos="flip-left"
+        data-aos-easing="ease-out-cubic"
+        data-aos-duration="2000"
+      >
+        <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      </div>
+      <div data-aos="zoom-out-left">
+        <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      </div>
+
+      <div data-aos="zoom-out-left">
+        <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      </div>
+      <div
+        data-aos="flip-left"
+        data-aos-easing="ease-out-cubic"
+        data-aos-duration="2000"
+      >
+        <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      </div>
+
+      <div data-aos="zoom-out-left">
+        <img :src="profileAvatar" alt="profileAvatar" class="w-72 border" />
+      </div>
     </div>
   </div>
 </template>

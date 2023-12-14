@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col justify-between gap-3 px-2">
-    <div>
-      <h1 class="font-bold text-3xl text-center">Kontakt</h1>
-    </div>
     <div class="flex justify-between gap-3 py-4 px-2">
-      <ul class="contact px-4 py-4 text-[15px] leading-10 w-[30vw] border">
+      <ul class="contact px-7 py-4 text-[16px] leading-10 w-[30vw] border">
+        <div class="">
+          <h1 class="font-bold text-3xl text-center mt-2 mb-8">Kontakt</h1>
+        </div>
         <li class="flex justify-start items-start">
           <p class="font-semibold w-[8vw]">Adresse:</p>
           <p class="w-[14vw]">Grüner Graben 1, 67655 Kaiseerslautern</p>

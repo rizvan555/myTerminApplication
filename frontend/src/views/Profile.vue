@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex flex-col pt-2 pb-8 my-28 mx-auto text-center border w-[40vw] h-[40vh] contact"
+    class="flex flex-col pt-2 my-28 mx-auto text-center border w-[40vw] h-[42vh] contact"
   >
     <div class="my-2">
-      <h1 class="font-bold text-2xl">Mein Konto</h1>
+      <h1 class="font-bold text-2xl mb-6">Mein Konto</h1>
     </div>
 
     <ul
@@ -31,16 +31,14 @@
           </button>
         </div>
 
-        <div class="">
-          <button
-            type="button"
-            v-if="updatedInfo.name"
-            @click="reloadButton"
-            class="flex justify-center items-center w-[30px] h-[30px] rounded-full border"
-          >
-            X
-          </button>
-        </div>
+        <button
+          type="button"
+          v-if="updatedInfo.name"
+          @click="reloadButton"
+          class="flex justify-center items-center w-8 h-8"
+        >
+          <img :src="CloseIcon" alt="closeIcon" />
+        </button>
       </li>
 
       <li class="flex gap-2 items-start justify-start w-[35vw]">
@@ -63,16 +61,14 @@
             <PenIcon />
           </button>
         </div>
-        <div class="">
-          <button
-            type="button"
-            v-if="updatedInfo.phone"
-            @click="reloadButton"
-            class="flex justify-center items-center w-[30px] h-[30px] rounded-full border"
-          >
-            X
-          </button>
-        </div>
+        <button
+          type="button"
+          v-if="updatedInfo.phone"
+          @click="reloadButton"
+          class="flex justify-center items-center w-8 h-8"
+        >
+          <img :src="CloseIcon" alt="closeIcon" />
+        </button>
       </li>
 
       <li class="flex gap-2 items-start justify-start w-[35vw]">
@@ -96,16 +92,14 @@
           </button>
         </div>
 
-        <div class="">
-          <button
-            type="button"
-            v-if="updatedInfo.email"
-            @click="reloadButton"
-            class="flex justify-center items-center w-[30px] h-[30px] rounded-full border"
-          >
-            X
-          </button>
-        </div>
+        <button
+          type="button"
+          v-if="updatedInfo.email"
+          @click="reloadButton"
+          class="flex justify-center items-center w-8 h-8"
+        >
+          <img :src="CloseIcon" alt="closeIcon" />
+        </button>
       </li>
       <button
         type="submit"
@@ -126,6 +120,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import PenIcon from '../assets/Icons/PenIcon.vue';
+import CloseIcon from '../assets/Icons/closeIcon.png';
 
 const users = ref<User[]>([]);
 const user = ref<User>({
