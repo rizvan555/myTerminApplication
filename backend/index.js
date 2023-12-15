@@ -220,7 +220,21 @@ app.get('/users', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+app.get('/api/users/login', async (req, res) => {
+  const config = {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  };
+  const response = await axios.post('/api/users/login', formData.value, config);
+  console.log(formData.value);
 
+  setItem('token', response.data.token);
+
+  router.push({ name: 'home' });
+});
 app.get('/users/service', async (req, res) => {
   try {
     const userServices = await UserService.find({});

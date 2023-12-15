@@ -5,7 +5,9 @@
     <div class="">
       <div class="">
         <div class="flex flex-col gap-2 px-6 py-2">
-          <h1 class="text-xs-center text-center text-2xl my-6 font-bold">
+          <h1
+            class="text-xs-center text-center text-2xl my-6 font-bold login-title"
+          >
             LOGIN
           </h1>
           <p class="text-xs-center">
@@ -18,8 +20,9 @@
             <fieldset class="form-group">
               <input
                 v-model="formData.email"
-                class="form-control form-control-lg"
+                class="form-control form-control-lg email-input"
                 :class="{ 'border-red-500': errors.email }"
+                id="email-input"
                 type="text"
                 placeholder="Email"
                 @input="clearError('email')"
@@ -31,8 +34,9 @@
             <fieldset class="form-group">
               <input
                 v-model="formData.password"
-                class="form-control form-control-lg"
+                class="form-control form-control-lg password-input"
                 :class="{ 'border-red-500': errors.password }"
+                id="password-input"
                 type="password"
                 placeholder="Password"
                 @input="clearError('password')"
@@ -44,8 +48,9 @@
 
             <button
               :disabled="isSubmitting"
-              class="bg-indigo-950 text-white rounded py-3 px-2 font-semibold hover:bg-slate-600 active:scale-95 transition-all"
+              class="bg-indigo-950 text-white rounded py-3 px-2 font-semibold hover:bg-slate-600 active:scale-95 transition-all login-button"
               type="submit"
+              id="login-button"
             >
               LOGIN
             </button>
@@ -106,7 +111,11 @@ const onSubmit = async (e: any) => {
 
     setItem('token', response.data.token);
 
-    router.push({ name: 'home' });
+    if (response.data.redirect) {
+      router.push(response.data.redirect);
+    } else {
+      router.push({ name: 'home' });
+    }
   } catch (error: any) {
     if (error.name === 'ValidationError') {
       errors.value = error.inner.reduce((acc: Errors, err: any) => {
